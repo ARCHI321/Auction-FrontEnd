@@ -1,0 +1,22 @@
+// a.button {
+//     display: inline-block;
+//     padding: 10px 20px;
+//     background-color: #007bff;
+//     color: #fff;
+//     text-decoration: none;
+//     border: 1px solid #007bff;
+//     border-radius: 5px;
+//     cursor: pointer;
+//     transition: background-color 0.3s ease;
+//   }
+a.button {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: black;
+  }
+
+  a.button:hover {
+    // background-color: #0056b3;
+    background-color: #ddd;
+  }

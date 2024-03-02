@@ -1,0 +1,65 @@
+<div class="whole-container">
+  <div class="bidding-page">
+    <ng-container *ngIf="!biddingStarted">
+      <h2
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: larger;
+        "
+      >
+        Countdown: {{ countdown }}
+      </h2>
+      <app-loading-spinner
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        "
+      ></app-loading-spinner>
+    </ng-container>
+    <ng-container *ngIf="biddingStarted">
+      <h2>Bidding Started!</h2>
+      <!-- Bidding interface -->
+      <h1>{{ item.name }}</h1>
+      <p>{{ item.description }}</p>
+      <p>Initial Price: {{ item.initialPrice }}</p>
+      <p>Current Price: {{ currentPrice }}</p>
+      <input
+        type="number"
+        [(ngModel)]="bidAmount"
+        min="{{ item.initialPrice }}"
+        max="{{ maxBid }}"
+        placeholder="Enter your bid"
+      />
+      <button (click)="placeBid()" [disabled]="isBiddingDisabled">
+        Place Bid
+      </button>
+      <p>Status: {{ bidStatus }}</p>
+
+      <input
+        type="range"
+        [(ngModel)]="bidAmount"
+        min="{{ item.initialPrice }}"
+        max="{{ maxBid }}"
+        step="1"
+      />
+
+      <!-- Bid and Fold buttons -->
+      <br />
+      <button (click)="fold()">Fold</button>
+
+      <h2>Registered Participants:</h2>
+      <ul>
+        <li *ngFor="let participant of participants">{{ participant.name }}</li>
+      </ul>
+    </ng-container>
+  </div>
+
+  <app-exit-confirmation
+    [ngStyle]="{ position: 'absolute', display: exit ? 'block' : 'none' }"
+    (exitConfirmed)="onExitConfirmed($event)"
+  ></app-exit-confirmation>
+</div>

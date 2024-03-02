@@ -1,0 +1,18 @@
+<div class="whole-container">
+  <app-back [backLocation]="backLocation"></app-back>
+  <div class="history-container">
+    <div class="history">
+      <h2 style="text-align: center">Registered Auctions</h2>
+      <div *ngIf="registeredAuctions.length > 0; else noHistory">
+        <div *ngFor="let item of registeredAuctions" class="history-item">
+          <h3>{{ item.name }}</h3>
+          <p>Description: {{ item.description }}</p>
+          <p>Final Price: {{ item.finalPrice }}</p>
+        </div>
+      </div>
+      <ng-template #noHistory>
+        <p>No registrations available.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

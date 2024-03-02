@@ -1,0 +1,128 @@
+/* bidhome.component.css */
+
+
+.whole-container{
+    width: 100%;
+    height: 113%;
+    background: linear-gradient( to right, #ff9966, #ff5e62);
+    max-height: 100vh;
+    overflow: auto;
+    margin-top: 23px;
+    padding: 24px;
+}
+.custom-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 0;
+  }
+
+  .custom-carousel-item {
+    flex: 0 0 auto;
+    min-width: 300px;
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-carousel-item h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .custom-carousel-item p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .custom-carousel-item button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-carousel-item button:hover {
+    background-color: #0056b3;
+  }
+
+  .history-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .history{
+    background-color: whitesmoke;
+    width: 80%;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .history-item{
+    border-bottom: 1px solid;
+  }
+
+
+  .auction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column width as needed */
+    gap: 20px; /* Adjust gap between items */
+  }
+
+  .auction-item {
+    background-color: #f0f0f0; /* Background color of each item */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for a card-like effect */
+  }
+
+  .auction-item h2 {
+    margin-bottom: 10px;
+  }
+
+  .auction-item button {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .auction-item button:hover {
+    background-color: darkblue;
+  }
+
+  button[disabled] {
+    background-color: #CCCCCC; /* Light gray */
+    color: #666666; /* Dark gray */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+    opacity: 0.7; /* Reduce opacity for disabled look */
+  }
+
+  .auction-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.auction-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 200px; /* Adjust the width as needed */
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* Add more styles as needed */

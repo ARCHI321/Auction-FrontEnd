@@ -1,0 +1,29 @@
+/* app.component.css */
+// .app-header, .app-footer {
+//     position: fixed;
+//     width: 100%;
+//     z-index: 1000; /* Adjust this value as needed */
+//   }
+
+//   .app-header {
+//     top: 0;
+//   }
+
+//   .app-footer {
+//     bottom: 0;
+//   }
+
+//   .content {
+//     margin-top: 60px; /* Adjust this value based on the height of your header */
+//     margin-bottom: 60px; /* Adjust this value based on the height of your footer */
+//     width: 100vw;
+//   }
+
+
+.absolute-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Adjust z-index as needed */
+  }

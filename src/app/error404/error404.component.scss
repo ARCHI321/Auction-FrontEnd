@@ -1,0 +1,27 @@
+/* error404.component.css */
+.error-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .error-container h1 {
+    font-size: 36px;
+    color: #d9534f; /* Bootstrap's danger color */
+  }
+
+  .error-container p {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  .error-container a {
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #31708f; /* Bootstrap's info color */
+    text-decoration: none;
+  }
+
+  .error-container a:hover {
+    text-decoration: underline;
+  }

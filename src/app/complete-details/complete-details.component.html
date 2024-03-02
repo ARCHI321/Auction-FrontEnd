@@ -1,0 +1,138 @@
+<!-- <div
+  style="width: 100vw; height: 100vh; display: flex"
+  *ngIf="loadingService.loading$ | async"
+>
+  <app-loading-spinner
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    "
+  ></app-loading-spinner>
+</div> -->
+
+<!-- <div
+  *ngIf="!(loadingService.loading$ | async)"
+  style="width: 98vw; height: 96vh"
+  class="details-container"
+> -->
+<div class="whole-container" [@fadeInAnimation]="animationState">
+  <div class="details-container">
+    <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmit()">
+      <label for="username">Name:</label>
+      <div id="username-privacy">
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          required
+          readonly
+        />
+        <p style="padding-left: 10px">Public</p>
+        <div
+          class="privacy-slider"
+          [class.namePrivate]="false"
+          (click)="toggleNamePrivacy()"
+        >
+          <div class="slider-handle"></div>
+        </div>
+        <p>Private</p>
+      </div>
+
+      <label for="nickname">Username:</label>
+      <div id="username-privacy">
+        <input
+          type="text"
+          id="nickname"
+          formControlName="nickname"
+          required
+          readonly
+        />
+        <p style="padding-left: 10px">Public</p>
+        <div
+          class="privacy-slider"
+          [class.namePrivate]="false"
+          (click)="toggleNamePrivacy()"
+        >
+          <div class="slider-handle"></div>
+        </div>
+        <p>Private</p>
+      </div>
+
+      <label for="phone">Phone:</label>
+      <div id="phone-privacy">
+        <input type="text" id="phone" formControlName="phone" required />
+        <p style="padding-left: 10px">Public</p>
+        <div
+          class="privacy-slider"
+          [class.phonePrivate]="isPhonePrivate"
+          (click)="togglePhonePrivacy()"
+        >
+          <div class="slider-handle"></div>
+        </div>
+        <p>Private</p>
+      </div>
+
+      <!-- <label for="phone">Phone:</label>
+      <input
+        type="text"
+        id="phone"
+        formControlName="phone"
+        required
+        pattern="\d{10}"
+      /> -->
+
+      <label for="email">Email:</label>
+      <div id="email-privacy">
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          required
+          readonly
+        />
+        <p style="padding-left: 10px">Public</p>
+        <div
+          class="privacy-slider"
+          [class.emailPrivate]="isEmailPrivate"
+          (click)="toggleEmailPrivacy()"
+        >
+          <div class="slider-handle"></div>
+        </div>
+        <p>Private</p>
+      </div>
+
+      <label for="upiId">UpiId:</label>
+      <div id="upiId-privacy">
+        <input type="text" id="upiId" formControlName="upiId" required />
+        <p style="padding-left: 10px">Public</p>
+        <div
+          class="privacy-slider"
+          [class.upiPrivate]="isUpiIdPrivate"
+          (click)="toggleUpiIdPrivacy()"
+        >
+          <div class="slider-handle"></div>
+        </div>
+        <p>Private</p>
+      </div>
+
+      <label for="address">Address:</label>
+      <div id="address-privacy">
+        <textarea id="address" formControlName="address" required></textarea>
+        <p style="padding-left: 10px">Public</p>
+        <div
+          class="privacy-slider"
+          [class.addressPrivate]="isAddressPrivate"
+          (click)="toggleAddressPrivacy()"
+        >
+          <div class="slider-handle"></div>
+        </div>
+        <p>Private</p>
+      </div>
+
+      <br />
+      <button type="submit" [disabled]="userDetailsForm.invalid">Submit</button>
+    </form>
+  </div>
+</div>

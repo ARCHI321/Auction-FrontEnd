@@ -1,0 +1,357 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Heading;
+}
+
+.landing-container {
+  background: linear-gradient( to right, #ff9966, #ff5e62);
+  }
+
+  .landing {
+    color: #1b1919;
+    height: 97vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 10px;
+    flex-direction: column;
+    position: relative;
+    top: 23%;
+    /* margin-left: 10%; */
+    padding: 2%;
+  }
+
+  .landing::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 140%;
+    background-image: url(../../assets/images/bg.jpg);
+    background-size: cover;
+    opacity: 0.6;
+    background-position: center;
+  }
+
+  .landing-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+
+  .landing h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    font-weight: 800;
+    color: black;
+  }
+
+  .landing p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+
+.landing-dashboard {
+  position: relative;
+    width: 100%;
+    color: #fff;
+    padding: 20px;
+}
+
+.landing-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px; /* Adjust circle diameter */
+  height: 100px; /* Adjust circle diameter */
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust background color and opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auctions-count,
+.upcoming-count {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.auctions-count span,
+.upcoming-count span {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.landing-dashboard::before::before {
+  content: '';
+  width: 80px; /* Adjust circle diameter */
+  height: 80px; /* Adjust circle diameter */
+  border-radius: 50%;
+  background-color: #ffcc00; /* Adjust background color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.text{
+  position: relative;
+  color: black;
+  font-size: 1.1em;
+  text-align: left;
+  width: 55%;
+  line-height: 23px;
+}
+
+
+
+ /* Table Styles */
+ .auction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.auction-table th, .auction-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.auction-table th {
+  background-color: #f2f2f2;
+}
+.auction-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.auction-table tr:hover {
+  background-color: #ddd;
+}
+/* Container Styles */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* Heading Styles */
+h1 {
+  text-align: center;
+}
+
+
+
+.colz .colz-icon i{
+  color: black;
+  padding: 8px;
+  padding-left: 0px;
+
+}
+
+.colz .colz-icon i:hover{
+  transform: scale(1.5);
+}
+
+.footer-container{
+  height: 17.8%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+
+}
+
+.footer-parent{
+ width: 100%;
+ height: 100%;
+ max-width: 1920px;
+
+}
+
+.footer-parent img{
+  max-width: 100%;
+  height: 130px;
+
+}
+
+
+
+/* contact-form.component.css */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 150px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* ongoing-auction.component.css */
+
+.ongoing-auction {
+  margin-top: 20px;
+  color: black;
+}
+
+.ongoing-auction h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.auction-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.auction-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.auction-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.auction-item p {
+  margin-bottom: 10px;
+}
+
+.auction-item button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.auction-item button:hover {
+  background-color: #0056b3;
+}
+
+
+section.counter-wrapper{
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  grid-template-columns: repeat(3,1fr);
+  background: var(--dark-gray);
+}
+
+section.counter-wrapper > div{
+  display: flex;
+  align-items: center;
+}
+
+section.counter-wrapper > div i{
+  font-size: 42px;
+  margin-right: 5px;
+}
+
+section.counter-wrapper > div:nth-child(1) i{
+ color: yellow;
+}
+section.counter-wrapper > div:nth-child(2) i{
+ color:var(--success);
+}
+section.counter-wrapper > div:nth-child(3) i{
+ color: var(--dribbble);
+}
+section.counter-wrapper > div h3{
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--fade);
+  margin-bottom: 8px;
+}
+section.counter-wrapper > div h5{
+  font-size: 14px;
+  color: var(--fade);
+}
+
+/* Add media queries for responsiveness */
+@media only screen and (max-width: 768px) {
+  .landing {
+    height: auto; /* Adjust height for smaller screens */
+    top: 10%; /* Adjust position from the top */
+    padding: 5%; /* Adjust padding */
+  }
+
+  .landing::before {
+    height: 200%; /* Adjust background height */
+  }
+
+  .landing-content {
+    width: 80%; /* Adjust content width */
+  }
+
+  /* Add more responsive styles as needed */
+}
+
+@media only screen and (max-width: 576px) {
+  .landing h1 {
+    font-size: 2.5em; /* Adjust font size for smaller screens */
+  }
+
+  .landing p {
+    font-size: 1.2em; /* Adjust font size for smaller screens */
+  }
+
+  /* Add more responsive styles as needed */
+}
+
+@media only screen and (max-width: 400px) {
+  .landing h1 {
+    font-size: 2em; /* Further adjust font size for smaller screens */
+  }
+
+  .landing p {
+    font-size: 1em; /* Further adjust font size for smaller screens */
+  }
+
+  /* Add more responsive styles as needed */
+}
+
+/* Add more media queries and responsive styles as needed */

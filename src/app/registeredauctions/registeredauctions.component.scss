@@ -1,0 +1,47 @@
+/* auction-history.component.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .history-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .history-item h3 {
+    margin-top: 0;
+  }
+
+  .history-item p {
+    margin-bottom: 5px;
+  }
+
+  .whole-container{
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+    padding: 12px;
+  }
+
+  .history-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .history{
+    background-color: whitesmoke;
+    width: 80%;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .history-item{
+    border-bottom: 1px solid;
+  }

@@ -1,0 +1,8 @@
+<!-- pagination.component.html -->
+<nav *ngIf="totalPages().length > 1">
+  <ul class="pagination">
+    <li *ngFor="let page of totalPages()" [class.active]="currentPage === page">
+      <a (click)="onPageClick(page)">{{ page }}</a>
+    </li>
+  </ul>
+</nav>

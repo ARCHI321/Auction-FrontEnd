@@ -1,0 +1,169 @@
+<div style="width: 100vw; height: 100vh; display: flex" *ngIf="isLoading">
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      display: flex;
+      flex-direction: column-reverse;
+    "
+  >
+    <app-loading-spinner
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      "
+    ></app-loading-spinner>
+
+    <h2
+      *ngIf="justLoggedIn"
+      style="display: flex; align-items: center; justify-content: center"
+    >
+      Switching your profile
+    </h2>
+    <h2
+      *ngIf="!justLoggedIn"
+      style="display: flex; align-items: center; justify-content: center"
+    >
+      Loading
+    </h2>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="whole-container">
+  <div class="container">
+    <h1>Welcome to the Auction Platform</h1>
+    <!-- <a id="myauction" routerLink="/my-auction-history">My Auctioned Items</a> -->
+    <div class="post-form">
+      <h2>Post an Item for Auction</h2>
+      <form (ngSubmit)="postItem()" #itemForm="ngForm">
+        <div class="form-group">
+          <label for="itemName">Item Name:</label>
+          <input
+            type="text"
+            id="itemName"
+            name="itemName"
+            [(ngModel)]="newItem.name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="itemDescription">Item Description:</label>
+          <textarea
+            id="itemDescription"
+            name="itemDescription"
+            [(ngModel)]="newItem.description"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="startingPrice">Starting Price:</label>
+          <input
+            type="number"
+            id="startingPrice"
+            name="startingPrice"
+            [(ngModel)]="newItem.startingPrice"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="selectedCategory">Select a Category:</label>
+          <select
+            id="selectedCategory"
+            (change)="showSelectedCategory()"
+            [(ngModel)]="newItem.category"
+            name="selectedCategory"
+            required
+          >
+            <option selected disabled>Select a Category</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="selectAuctionType">Select a Type:</label>
+          <select
+            id="selectAuctionType"
+            (change)="showSelectedAuctionType()"
+            [(ngModel)]="newItem.auctionType"
+            name="selectAuctionType"
+            required
+          >
+            <option selected disabled>Select a Type</option>
+            <option
+              *ngFor="let auctionType of allAuctionTypes"
+              [value]="auctionType"
+            >
+              {{ auctionType }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="itemImage">Item Image:</label>
+          <input
+            type="file"
+            id="itemImage"
+            name="itemImage"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            [(ngModel)]="newItem.image"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="datetime">Select Date:</label>
+          <input
+            type="date"
+            id="datetime"
+            name="datetime"
+            [(ngModel)]="newItem.date"
+            [min]="minDate"
+            required
+            (ngModelChange)="onDateSelected()"
+          />
+        </div>
+        <div class="form-group" *ngIf="!isDateSelected">
+          <label for="selectSlot">Select Date first:</label>
+        </div>
+        <div class="form-group" *ngIf="isDateSelected">
+          <label for="selectSlot">Select a Slot:</label>
+          <select
+            id="selectSlot"
+            (change)="showSelectedSlot()"
+            [(ngModel)]="newItem.slot"
+            [ngModelOptions]="{ standalone: true }"
+            name="selectSlot"
+            required
+          >
+            <option selected disabled>Select a Slot</option>
+            <option
+              *ngFor="let slotStatusObj of slotStatus"
+              [value]="slotStatusObj.slotNumber"
+              [disabled]="
+                slotStatusObj.slotStatus !== 'AVAILABLE' ||
+                slotStatusObj.istimeExpired
+              "
+            >
+              Slot {{ slotStatusObj.slotNumber }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="isSlotSelected">
+          <span
+            >Start Time:
+            {{ timingForSlot.start_time | date : "mediumTime" }}</span
+          >
+          <br />
+          <span
+            >End Time: {{ timingForSlot.end_time | date : "mediumTime" }}</span
+          >
+        </div>
+
+        <button type="submit" [disabled]="!itemForm.valid">Post Item</button>
+      </form>
+    </div>
+  </div>
+</div>
