@@ -1,0 +1,8 @@
+<div class="container" >
+  <h1>Payment Page</h1>
+
+  <form #userForm="ngForm"  (ngSubmit)="submitForm(userForm)">
+    <input type="number"  name="name" [(ngModel)]="amount" placeholder="amount">
+    <button class="btn btn-primary m-2" type="submit">Pay</button>
+  </form>
+</div>
