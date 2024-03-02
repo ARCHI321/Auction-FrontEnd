@@ -12,7 +12,10 @@ $placeholder-color: #919aa3;
   border-radius: 10px;
   margin: 50px auto;
   transition: opacity 0.3s ease, transform 1s ease;
-
+  h2 {
+    font-size: 25px;
+    margin-top: 10px;
+  }
   .icon-banner {
     display: flex;
     align-items: center;
@@ -58,7 +61,7 @@ $placeholder-color: #919aa3;
 
     .passwordCheck {
       position: relative;
-    
+
       i {
         position: absolute;
         top: 50%;
@@ -67,7 +70,6 @@ $placeholder-color: #919aa3;
         cursor: pointer;
       }
     }
-    
 
     .invalid {
       color: $error-color;
