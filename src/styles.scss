@@ -1,35 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-
 @font-face {
-    font-family: Heading;
-    src: url(/assets/fonts/Lato-Regular.ttf) format("truetype");
-  }
+  font-family: lato;
+  src: url(/assets/fonts/Lato-Regular.ttf) format("truetype");
+}
 @font-face {
-    font-family: Subheading;
-    src: url(/assets/fonts/SofiaSans-Regular.ttf) format("truetype");
-  }
-:root{
-    --background: linear-gradient( to right, #7d66ff, #ff5e62);
-    --textColor: #000;
-
+  font-family: sofia;
+  src: url(/assets/fonts/SofiaSans-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: karla;
+  src: url(/assets/fonts/Karla-Regular.ttf) format("truetype");
+}
+:root {
+  --background: linear-gradient(to right, #7d66ff, #ff5e62);
+  --textColor: #000;
 }
 
 .btn1 {
-    font-family: Manrope;
-    font-size: 16px;
-    padding: 10px 15px;
-    border: 1px solid var(--textColor);
-    border-radius: 50px;
-    cursor: pointer;
-    background-color: red;
-    color: var(--textColor);
-    font-weight: 400;
-    transition: box-shadow 0.3s ease;
-  }
+  font-family: Manrope;
+  font-size: 16px;
+  padding: 10px 15px;
+  border: 1px solid var(--textColor);
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: red;
+  color: var(--textColor);
+  font-weight: 400;
+  transition: box-shadow 0.3s ease;
+}
 
-  .btn1:hover {
-    background-color: var(--background);
-    color: var(--textColor);
-  }
+.btn1:hover {
+  background-color: var(--background);
+  color: var(--textColor);
+}
+
+

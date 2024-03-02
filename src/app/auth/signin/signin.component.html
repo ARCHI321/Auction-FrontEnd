@@ -1,68 +1,49 @@
-<div class="whole-container" [@fadeInAnimation]="animationState">
-  <button class="back-button" (click)="goBackToHome()">Back to Home</button>
 
-  <div class="signin-container">
-    <h2>Sign In</h2>
-    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-      <label for="username">Username:</label>
-      <input type="text" id="username" formControlName="username" />
-      <div
-        class="invalid"
-        *ngIf="username!.invalid && (username!.dirty || username!.touched)"
-      >
-        <div *ngIf="username!.errors!['required']">Username is required.</div>
-        <!-- Add more validation messages as needed -->
+<div class="signin-container" [@fadeInAnimation]="animationState">
+  <div class="icon-banner" routerLink="/">
+    <div class="icon" [innerHTML]="getIconContent(mainlogo)"></div>
+    <h1>BidxChange</h1>
+  </div>
+
+  <h2>Sign into your account</h2>
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="username" id="username" formControlName="username" />
+    <div class="invalid" *ngIf="username!.invalid && (username!.dirty || username!.touched)">
+      <div *ngIf="username!.errors!['required']">Username is required.</div>
+    </div>
+
+
+    <div class="passwordCheck">
+      <input placeholder="password" type="{{ showPassword ? 'text' : 'password' }}" id="password"
+        formControlName="password" />
+      <i class="material-icons password-icon" (click)="togglePasswordVisibility()">
+        {{ showPassword ? "visibility" : "visibility_off" }}
+      </i>
+    </div>
+
+    <div class="invalid" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+      <div *ngIf="password?.errors?.['required']">Password is required.</div>
+      <div *ngIf="(password?.errors)?.['minlength']">
+        Password must be at least 6 characters.
       </div>
+    </div>
 
-      <label for="password">Password:</label>
-      <!-- <input type="password" id="password" formControlName="password" /> -->
-      <div class="passwordCheck">
-        <input
-          type="{{ showPassword ? 'text' : 'password' }}"
-          id="password"
-          formControlName="password"
-        />
-        <i
-          class="material-icons password-icon"
-          (click)="togglePasswordVisibility()"
-        >
-          {{ showPassword ? "visibility" : "visibility_off" }}
-        </i>
-      </div>
+    <select formControlName="selectedRole">
+      <option value="" disabled>Select a Profile</option>
+      <option value="bidder">Bidder</option>
+      <option value="auctionner">Auctionner</option>
+    </select>
 
-      <div
-        class="invalid"
-        *ngIf="password?.invalid && (password?.dirty || password?.touched)"
-      >
-        <div *ngIf="password!.errors!['required']">Password is required.</div>
-        <div *ngIf="(password?.errors)!['minlength']">
-          Password must be at least 6 characters.
-        </div>
-      </div>
-
-      <label for="selectedRole">Select a Role:</label>
-      <select formControlName="selectedRole">
-        <option value="" disabled>Select a Role</option>
-        <option value="bidder">Bidder</option>
-        <option value="auctionner">Auctionner</option>
-      </select>
-
-      <div
-        class="invalid"
-        *ngIf="
+    <div class="invalid" *ngIf="
           signinForm.get('selectedRole')?.hasError('required') &&
           signinForm.get('selectedRole')?.touched
-        "
-      >
-        Please select a role.
-      </div>
-      <div class="forgot-password-link">
-        <a routerLink="/forgot-password" (click)="forgotPassword()"
-          >Forgot Password?</a
-        >
-      </div>
-
-      <button type="submit" [disabled]="signinForm.invalid">Sign In</button>
-    </form>
-  </div>
+        ">
+      Please select a role.
+    </div>
+    <button class="mt-2" type="submit" [disabled]="signinForm.invalid">Sign In</button>
+    <div class="forgot-password-link">
+      <a routerLink="/forgot-password" (click)="forgotPassword()">Forgot Password?</a>
+      <p>Don't have an account? <span routerLink="/signup">Register here.</span> </p>
+    </div>
+  </form>
 </div>

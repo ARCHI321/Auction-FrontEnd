@@ -22,7 +22,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { BiddingpageComponent } from './auction/bidder/biddingpage/biddingpage.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
 import { BackComponent } from './shared/back/back.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -39,6 +38,7 @@ import { BasicAuthHttpInterceptorService } from './shared/services/basic-auth-ht
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { PaginationComponent } from './auction/pagination/pagination.component';
 import { EditAuctionPageComponent } from './auction/auctioneer/edit-auction-page/edit-auction-page.component';
+import { CarouselComponent } from './shared/carousel/carousel.component';
 
 
 
