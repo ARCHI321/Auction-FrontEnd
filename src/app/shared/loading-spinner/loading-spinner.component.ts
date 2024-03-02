@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingService } from '../../loading.service';
+import { LoadingService } from '../services/loading.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 
 

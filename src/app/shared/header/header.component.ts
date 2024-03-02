@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { log } from 'console';
-import { AuthService } from './../../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Observable, Subscription, map } from 'rxjs';
 import { Route, Router } from '@angular/router';
-import { DataService } from '../../data.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-header',
