@@ -1,194 +1,216 @@
-<!-- <div style="width: 100vw; height: 100vh; display: flex" *ngIf="isLoading">
-  <div
-    style="
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      display: flex;
-      flex-direction: column-reverse;
-    "
+<div class="main-container">
+  <section
+    id="auction-landing"
+    class="auction-landing d-flex align-items-center"
   >
-    <app-loading-spinner
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      "
-    ></app-loading-spinner>
-    <h2 style="display: flex; align-items: center; justify-content: center">
-      Loading
-    </h2>
-  </div>
-</div> -->
-<section class="landing-container">
-  <section class="landing">
-    <div class="landing-content">
-      <h1>Welcome to E-AuctionHub</h1>
-      <p>Your premier destination for online auctions</p>
-    </div>
-    <div class="text">
-      <div style="display: flex">
-        <p>
-          Aren't you curious to know what treasure you will discover, to know
-        </p>
-
-        <img style="width: 50px" src="../../assets/images/arrow2.png" alt="" />
-      </div>
-      <div style="display: flex; flex-direction: column; align-items: end">
-        <button
-          style="padding: 10px 15px"
-          class="btn btn-light btn-outline-success me-2 btn-lg"
-          routerLink="/signup"
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1>Your Trusted Platform for Seamless Online Auction Bidding</h1>
+          <h2>Join us and experience the excitement of winning!</h2>
+          <div>
+            <button class="btn btn-get-started" routerLink="/signup">
+              Sign Up
+            </button>
+          </div>
+        </div>
+        <div
+          class="col-lg-6 auction-img"
+          data-aos="zoom-out"
+          data-aos-delay="200"
         >
-          Sign up
-        </button>
-      </div>
-    </div>
-
-    <!-- <div class="landing-dashboard">
-
-    </div> -->
-  </section>
-
-  <div style="position: relative" className="footer-container">
-    <div className="footer-parent">
-      <img
-        src="/assets/images/shape-bg.png"
-        alt="no internet connection"
-      />
-    </div>
-  </div>
-
-  <section style="background-color: #7d66ff" class="counter-wrapper">
-    <div>
-      <div>
-        <i class="uil uil-cell"></i>
-      </div>
-      <div>
-        <h3><span class="counter" data-count="10">10,000</span>+</h3>
-        <h5>Highest Bid Price</h5>
-      </div>
-    </div>
-    <div>
-      <div>
-        <i class="uil uil-smile"></i>
-      </div>
-      <div>
-        <h3><span class="counter" data-count="11">12</span></h3>
-        <h5>Upcoming Auctions</h5>
-      </div>
-    </div>
-    <div>
-      <div>
-        <i class="uil uil-trophy"></i>
-      </div>
-      <div>
-        <h3><span class="counter" data-count="10">50</span></h3>
-        <h5>Completed Auctions</h5>
+          <img src="assets/images/landing_bg.png" class="img-fluid" alt="" />
+        </div>
       </div>
     </div>
   </section>
 
-  <div
-    style="
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    "
-    class="ongoing-auction"
-  >
-    <h2 style="text-align: center">Ongoing Auctions</h2>
-    <div class="auction-item">
-      <img src="" alt="Auction Item" />
-      <h3>Auction Item Title</h3>
-      <p>Description of the auction item goes here.</p>
-      <p>Current Bid: $100</p>
-      <button>Place Bid</button>
+  <section class="auction-details">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-sm-6">
+          <div class="card l-bg-cherry">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large">
+                <i class="fas fa-solid fa-gavel"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">New Auction</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">3,243</h2>
+                </div>
+                <div class="col-4 text-right">
+                  <span>12.5% <i class="fa fa-arrow-up"></i></span>
+                </div>
+              </div>
+              <div class="progress mt-1" data-height="8" style="height: 8px">
+                <div
+                  class="progress-bar l-bg-cyan"
+                  role="progressbar"
+                  data-width="25%"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: 55%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-sm-6">
+          <div class="card l-bg-blue-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Auctioneers & Bidders</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">15.07k</h2>
+                </div>
+                <div class="col-4 text-right">
+                  <span>9.23% <i class="fa fa-arrow-up"></i></span>
+                </div>
+              </div>
+              <div class="progress mt-1" data-height="8" style="height: 8px">
+                <div
+                  class="progress-bar l-bg-green"
+                  role="progressbar"
+                  data-width="25%"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-sm-6">
+          <div class="card l-bg-green-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large">
+                <i class="fas fa-ticket-alt"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Upcoming Auctions</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">578</h2>
+                </div>
+                <div class="col-4 text-right">
+                  <span>10% <i class="fa fa-arrow-up"></i></span>
+                </div>
+              </div>
+              <div class="progress mt-1" data-height="8" style="height: 8px">
+                <div
+                  class="progress-bar l-bg-orange"
+                  role="progressbar"
+                  data-width="25%"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-sm-6">
+          <div class="card l-bg-orange-dark">
+            <div class="card-statistic-3 p-4">
+              <div class="card-icon card-icon-large">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="mb-4">
+                <h5 class="card-title mb-0">Revenue Today</h5>
+              </div>
+              <div class="row align-items-center mb-2 d-flex">
+                <div class="col-8">
+                  <h2 class="d-flex align-items-center mb-0">₹11.61Crores</h2>
+                </div>
+                <div class="col-4 text-right">
+                  <span>2.5% <i class="fa fa-arrow-up"></i></span>
+                </div>
+              </div>
+              <div class="progress mt-1" data-height="8" style="height: 8px">
+                <div
+                  class="progress-bar l-bg-cyan"
+                  role="progressbar"
+                  data-width="25%"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: 25%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <h1>Upcoming Auctions</h1>
-  <app-carousel></app-carousel>
-
-  <div class="container">
-    <table class="auction-table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Starting Price</th>
-          <th>Start Date</th>
-          <th>Start Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Antique Watch</td>
-          <td>$500</td>
-          <td>2024-02-20</td>
-          <td>10 AM</td>
-        </tr>
-        <tr>
-          <td>Painting</td>
-          <td>$1000</td>
-          <td>2024-02-22</td>
-          <td>10:30 AM</td>
-        </tr>
-        <tr>
-          <td>Collectible Coins</td>
-          <td>$200</td>
-          <td>2024-02-24</td>
-          <td>11:00 AM</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- contact-form.component.html -->
-  <div
-    style="
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: linear-gradient(to right, #7d66ff, #ff5e62);
-    "
-  >
-    <h2>Contact Us</h2>
-
-    <form style="width: 60%" (ngSubmit)="submitForm()">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          [(ngModel)]="formData.name"
-          required
-        />
+  <section class="auction-upcoming">
+    <h1>Upcoming Auctions</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Base Price</th>
+              <th>Countdown</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items">
+              <td>
+                <img
+                  src="{{ item.imageUrl }}"
+                  alt="{{ item.title }}"
+                  class="img-fluid"
+                />
+              </td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.description }}</td>
+              <td>₹{{ item.basePrice }}</td>
+              <td>{{ item.countdown }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          [(ngModel)]="formData.email"
-          required
-        />
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="newsletter-subscribe">
+      <div class="intro">
+        <h2 class="text-center">Subscribe for our Newsletter</h2>
+        <p class="text-center">
+          Be in the know and find your next winning bid with our newsletter.
+        </p>
       </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          [(ngModel)]="formData.message"
-          required
-        ></textarea>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-</section>
+      <form class="form-inline" method="post">
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            placeholder="Your Email"
+          />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

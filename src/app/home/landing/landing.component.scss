@@ -1,357 +1,321 @@
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Heading;
+// Define primary color
+$primary-color: #4154f1;
+
+// Define gradients
+$cherry-gradient: linear-gradient(to right, #493240, rgb(179, 30, 30));
+$blue-dark-gradient: linear-gradient(to right, #373b44, #4286f4);
+$green-dark-gradient: linear-gradient(to right, #0a504a, #38ef7d);
+$orange-dark-gradient: linear-gradient(to right, #a86008, #ffba56);
+$cyan-gradient: linear-gradient(135deg, #289cf5, #84c0ec);
+$green-gradient: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+$orange-gradient: linear-gradient(to right, #f9900e, #ffba56);
+
+// Main container styles
+.main-container {
+  max-width: 1440px;
+  margin: 100px auto;
+  padding: 15px;
 }
 
-.landing-container {
-  background: linear-gradient( to right, #ff9966, #ff5e62);
+// Auction landing section
+.auction-landing {
+  width: 100%;
+  height: 90vh;
+  background-color: #d0d0ce;
+  border-radius: 20px;
+
+  h1 {
+    margin: 0;
+    font-family: lato;
+    font-size: 48px;
+    line-height: 50px;
+    font-weight: 700;
+    color: #012970;
   }
 
-  .landing {
-    color: #1b1919;
-    height: 97vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-bottom: 10px;
-    flex-direction: column;
-    position: relative;
-    top: 23%;
-    /* margin-left: 10%; */
-    padding: 2%;
+  h2 {
+    color: #d04760;
+    margin: 15px 0 0 0;
+    font-size: 26px;
   }
 
-  .landing::before{
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 140%;
-    background-image: url(/assets/images/bg.jpg);
-    background-size: cover;
-    opacity: 0.6;
-    background-position: center;
-  }
-
-  .landing-content {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-  }
-
-  .landing h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-    font-weight: 800;
-    color: black;
-  }
-
-  .landing p {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    width: 100%;
-    text-align: center;
-  }
-
-
-.landing-dashboard {
-  position: relative;
-    width: 100%;
+  .btn-get-started {
+    margin-top: 30px;
+    line-height: 0;
+    padding: 20px 40px;
+    border-radius: 4px;
+    transition: 0.5s;
     color: #fff;
-    padding: 20px;
-}
+    background: rgb(179, 30, 30);
+    box-shadow: 0px 5px 30px
+      rgba(
+        red($primary-color),
+        green($primary-color),
+        blue($primary-color),
+        0.4
+      );
+    span {
+      font-family: karla;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
 
-.landing-dashboard::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px; /* Adjust circle diameter */
-  height: 100px; /* Adjust circle diameter */
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust background color and opacity */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    i {
+      margin-left: 5px;
+      font-size: 18px;
+      transition: 0.3s;
 
-.auctions-count,
-.upcoming-count {
-  text-align: center;
-  margin: 10px 0;
-}
-
-.auctions-count span,
-.upcoming-count span {
-  display: block;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.landing-dashboard::before::before {
-  content: '';
-  width: 80px; /* Adjust circle diameter */
-  height: 80px; /* Adjust circle diameter */
-  border-radius: 50%;
-  background-color: #ffcc00; /* Adjust background color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.text{
-  position: relative;
-  color: black;
-  font-size: 1.1em;
-  text-align: left;
-  width: 55%;
-  line-height: 23px;
-}
-
-
-
- /* Table Styles */
- .auction-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.auction-table th, .auction-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-.auction-table th {
-  background-color: #f2f2f2;
-}
-.auction-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-.auction-table tr:hover {
-  background-color: #ddd;
-}
-/* Container Styles */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-/* Heading Styles */
-h1 {
-  text-align: center;
-}
-
-
-
-.colz .colz-icon i{
-  color: black;
-  padding: 8px;
-  padding-left: 0px;
-
-}
-
-.colz .colz-icon i:hover{
-  transform: scale(1.5);
-}
-
-.footer-container{
-  height: 17.8%;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-
-}
-
-.footer-parent{
- width: 100%;
- height: 100%;
- max-width: 1920px;
-
-}
-
-.footer-parent img{
-  max-width: 100%;
-  height: 130px;
-
-}
-
-
-
-/* contact-form.component.css */
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-textarea {
-  height: 150px;
-}
-
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-/* ongoing-auction.component.css */
-
-.ongoing-auction {
-  margin-top: 20px;
-  color: black;
-}
-
-.ongoing-auction h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.auction-item {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.auction-item img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-.auction-item h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.auction-item p {
-  margin-bottom: 10px;
-}
-
-.auction-item button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.auction-item button:hover {
-  background-color: #0056b3;
-}
-
-
-section.counter-wrapper{
-  display: grid;
-  /* grid-template-columns: 1fr 1fr 1fr; */
-  grid-template-columns: repeat(3,1fr);
-  background: var(--dark-gray);
-}
-
-section.counter-wrapper > div{
-  display: flex;
-  align-items: center;
-}
-
-section.counter-wrapper > div i{
-  font-size: 42px;
-  margin-right: 5px;
-}
-
-section.counter-wrapper > div:nth-child(1) i{
- color: yellow;
-}
-section.counter-wrapper > div:nth-child(2) i{
- color:var(--success);
-}
-section.counter-wrapper > div:nth-child(3) i{
- color: var(--dribbble);
-}
-section.counter-wrapper > div h3{
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--fade);
-  margin-bottom: 8px;
-}
-section.counter-wrapper > div h5{
-  font-size: 14px;
-  color: var(--fade);
-}
-
-/* Add media queries for responsiveness */
-@media only screen and (max-width: 768px) {
-  .landing {
-    height: auto; /* Adjust height for smaller screens */
-    top: 10%; /* Adjust position from the top */
-    padding: 5%; /* Adjust padding */
+      &:hover {
+        transform: translateX(5px);
+      }
+    }
   }
 
-  .landing::before {
-    height: 200%; /* Adjust background height */
+  .auction-img {
+    text-align: right;
   }
 
-  .landing-content {
-    width: 80%; /* Adjust content width */
+  @media (min-width: 1024px) {
+    background-attachment: fixed;
   }
 
-  /* Add more responsive styles as needed */
+  @media (max-width: 991px) {
+    height: auto;
+    padding: 120px 0 60px 0;
+
+    .auction-img {
+      text-align: center;
+      margin-top: 80px;
+
+      img {
+        width: 80%;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    .auction-img img {
+      width: 100%;
+    }
+  }
 }
 
-@media only screen and (max-width: 576px) {
-  .landing h1 {
-    font-size: 2.5em; /* Adjust font size for smaller screens */
+// Auction details section
+.auction-details {
+  // background-color: #d0d0ce;
+  border: 2px solid #d0d0ce;
+  margin-top: 30px;
+  border-radius: 10px;
+  padding-top: 30px;
+
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1),
+      0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1),
+      0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12),
+      0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
   }
 
-  .landing p {
-    font-size: 1.2em; /* Adjust font size for smaller screens */
+  .card-title {
+    font-family: lato;
+    font-size: 1rem;
   }
 
-  /* Add more responsive styles as needed */
+  .l-bg-cherry {
+    background: $cherry-gradient !important;
+    color: #fff;
+  }
+
+  .l-bg-blue-dark {
+    background: $blue-dark-gradient !important;
+    color: #fff;
+  }
+
+  .l-bg-green-dark {
+    background: $green-dark-gradient !important;
+    color: #fff;
+  }
+
+  .l-bg-orange-dark {
+    background: $orange-dark-gradient !important;
+    color: #fff;
+  }
+
+  .card .card-statistic-3 .card-icon-large .fas,
+  .card .card-statistic-3 .card-icon-large .far,
+  .card .card-statistic-3 .card-icon-large .fab,
+  .card .card-statistic-3 .card-icon-large .fal {
+    font-size: 110px;
+  }
+
+  .card .card-statistic-3 .card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+  }
+
+  .l-bg-cyan {
+    background: $cyan-gradient !important;
+    color: #fff;
+  }
+
+  .l-bg-green {
+    background: $green-gradient !important;
+    color: #fff;
+  }
+
+  .l-bg-orange {
+    background: $orange-gradient !important;
+    color: #fff;
+  }
+}
+.auction-upcoming {
+  margin: 30px 0;
+  background-color: #d0d0ce;
+  padding: 25px;
+  border-radius: 10px;
+  overflow: auto;
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .table td {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .table img {
+    max-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 }
 
-@media only screen and (max-width: 400px) {
-  .landing h1 {
-    font-size: 2em; /* Further adjust font size for smaller screens */
+.newsletter {
+  border: 2px solid #d0d0ce;
+  margin-top: 30px;
+  border-radius: 10px;
+  padding-top: 30px;
+
+  .newsletter-subscribe {
+    color: #313437;
+    background-color: #fff;
+    padding: 50px 0;
   }
 
-  .landing p {
-    font-size: 1em; /* Further adjust font size for smaller screens */
+  .newsletter-subscribe p {
+    color: #7d8285;
+    line-height: 1.5;
   }
 
-  /* Add more responsive styles as needed */
+  .newsletter-subscribe h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    padding-top: 0;
+    margin-top: 0;
+    color: inherit;
+  }
+
+  .newsletter-subscribe .intro {
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto 25px;
+  }
+
+  .newsletter-subscribe .intro p {
+    margin-bottom: 35px;
+  }
+
+  .newsletter-subscribe form {
+    justify-content: center;
+  }
+  .form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .newsletter-subscribe form .form-control {
+    background: #eff1f4;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    text-indent: 9px;
+    height: 45px;
+    margin-right: 10px;
+    min-width: 250px;
+  }
+
+  .newsletter-subscribe form .btn {
+    padding: 16px 32px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    opacity: 0.9;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    line-height: 1;
+  }
+
+  .newsletter-subscribe form .btn:hover {
+    opacity: 1;
+  }
+
+  .newsletter-subscribe form .btn:active {
+    transform: translateY(1px);
+  }
+
+  .newsletter-subscribe form .btn-primary {
+    background-color: #055ada !important;
+    color: #fff;
+    outline: none !important;
+  }
 }
-
-/* Add more media queries and responsive styles as needed */
