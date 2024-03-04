@@ -27,7 +27,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RegisteredauctionsComponent } from './auction/bidder/registeredauctions/registeredauctions.component';
 import { Error404Component } from './shared/error404/error404.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { UserInfoComponent } from './auction/profile-features/user-info/user-info.component';
 import { EditProfileComponent } from './auction/profile-features/edit-profile/edit-profile.component';
 import { ExitConfirmationComponent } from './shared/exit-confirmation/exit-confirmation.component';
@@ -39,6 +38,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { PaginationComponent } from './auction/pagination/pagination.component';
 import { EditAuctionPageComponent } from './auction/auctioneer/edit-auction-page/edit-auction-page.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
+import { BidHistoryComponent } from './auction/bidder/bid-history/bid-history.component';
 
 
 
@@ -68,7 +68,8 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     ExitConfirmationComponent,
     ForgotPasswordComponent,
     PaginationComponent,
-    EditAuctionPageComponent
+    EditAuctionPageComponent,
+    BidHistoryComponent
   ],
   imports: [
     BrowserModule,

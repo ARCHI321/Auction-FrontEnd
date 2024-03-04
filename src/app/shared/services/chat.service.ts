@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 
 import { map } from 'rxjs/operators';
-import { WebsocketService } from './websocket.service';
+import { WebsocketSecondService } from './websocket-second.service';
 
 
 const CHAT_URL = "ws://localhost:8080/ws";
@@ -21,7 +21,7 @@ export class ChatService {
 
   private messagesSubject: Subject<Message>;
 
-  constructor(private wsService: WebsocketService) {
+  constructor(private wsService: WebsocketSecondService) {
 
     this.messagesSubject = new Subject<Message>();
   //   this.messages = <Subject<Message>>wsService.connect(CHAT_URL).pipe(
@@ -50,7 +50,7 @@ export class ChatService {
 
 
   public sendChatMessage(message: Message) {
-    console.log("chat service ", message);
+    //console.log("chat service ", message);
 
     this.wsService.sendMessage({
       message: message,
@@ -59,6 +59,10 @@ export class ChatService {
 
   get messages() {
     return this.messagesSubject.asObservable();
+  }
+
+  public disconnect(){
+    this.wsService.disconnect();
   }
 
 

@@ -4,7 +4,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class WebsocketService {
+export class WebsocketSecondService {
   private subject!: Subject<MessageEvent>;
   private socket!: WebSocket;
   private url!: string;
@@ -52,8 +52,8 @@ export class WebsocketService {
 
 
   public sendMessage(message: any) {
-    //console.log("Websocket service ",message);
-    //console.log("Websocket service ",this.socket.readyState === WebSocket.OPEN);
+    console.log("Websocket service ",message);
+    console.log("Websocket service ",this.socket.readyState === WebSocket.OPEN);
 
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));

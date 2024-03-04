@@ -1,0 +1,45 @@
+<div style="width: 100vw; height: 100vh; display: flex" *ngIf="isLoading">
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      display: flex;
+      flex-direction: column-reverse;
+    "
+  >
+    <app-loading-spinner
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      "
+    ></app-loading-spinner>
+
+    <h2 style="display: flex; align-items: center; justify-content: center">
+      Bidding has ended
+    </h2>
+  </div>
+</div>
+
+<!-- bid-history.component.html -->
+<div class="bid-history-container" *ngIf="!isLoading">
+  <h2 class="bid-history-heading">Bid History</h2>
+  <table class="bid-table">
+    <thead>
+      <tr>
+        <th>Auction ID</th>
+        <th>User ID</th>
+        <th>Bid Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bid of bids" class="bid-item">
+        <td>{{ bid.auctionId }}</td>
+        <td>{{ bid.userId }}</td>
+        <td>{{ bid.bidAmount }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -58,11 +58,11 @@
         <button
           style="margin-left: 10px"
           [ngStyle]="{
-        'background-color': !isRegistered(auction.id) ? 'gray' : 'blue',
+        'background-color': isRegistered(auction.auctionId) ? 'blue' : 'gray',
         'color': 'white',
-        'cursor': !isRegistered(auction.id) ? 'not-allowed' : 'pointer',
+        'cursor': isRegistered(auction.auctionId) ? 'allowed' : 'pointer',
       }"
-          [disabled]="!isRegistered(auction.id)"
+          [disabled]="!isRegistered(auction.auctionId)"
           (click)="takePart(auction)"
         >
           Take Part
@@ -112,16 +112,16 @@
         <div>
           <button
             [ngStyle]="{
-        'background-color': isRegistered(auction.id) ? 'gray' : 'blue',
+        'background-color': isRegistered(auction.auctionId) ? 'gray' : 'blue',
         color: 'white',
-        cursor: isRegistered(auction.id) ? 'not-allowed' : 'allowed',
+        cursor: isRegistered(auction.auctionId) ? 'pointer' : 'allowed',
       }"
             [disabled]="isRegistered(auction.auctionId)"
             (click)="register(auction)"
           >
             Register
           </button>
-          <button
+          <!-- <button
             style="margin-left: 10px"
             [ngStyle]="{
           'background-color': !isRegistered(auction.auctionId) ? 'gray' : 'blue',
@@ -132,7 +132,7 @@
             (click)="takePart(auction)"
           >
             Take Part
-          </button>
+          </button> -->
         </div>
         <app-pagination
           [pageSize]="pageSize"
@@ -143,70 +143,7 @@
       </div>
     </div>
     <ng-template #noHistory>
-      <p>No auction history available.</p>
+      <p>No upcoming auction available.</p>
     </ng-template>
-
-    <!-- <div *ngIf="auctionHistory.length > 0; else noHistory">
-      <div
-        class="history-item"
-        *ngFor="
-          let auction of auctions
-            | slice
-              : (currentPage - 1) * pageSize
-              : (currentPage - 1) * pageSize + pageSize
-        "
-      >
-        <div
-          style="display: flex; flex-direction: column; justify-content: center"
-        >
-          <h3 style="font-size: 30px; font-weight: bold">
-            {{ auction.title }}
-          </h3>
-          <p style="display: none" id="{{ auction.auctionId }}">
-            {{ auction.auctionId }}
-          </p>
-          <p class="pTag">Description : {{ auction.description }}</p>
-          <p class="pTag">Category : {{ auction.category }}</p>
-          <p class="pTag">StartingPrice : {{ auction.startingPrice }}</p>
-          <p class="pTag">auctionType : {{ auction.auctionType }}</p>
-          <p class="pTag">auctionStatus : {{ auction.auctionStatus }}</p>
-          <p class="pTag">Date : {{ auction.date }}</p>
-          <p class="pTag">slotNumber : {{ auction.slot.slotNumber }}</p>
-          <p class="pTag">startTime : {{ auction.slot.startTime }}</p>
-          <p class="pTag">endTime : {{ auction.slot.endTime }}</p>
-        </div>
-        <div style="width: 40%">
-          <img
-            style="width: 100%"
-            src="{{ auction.imageData }}"
-            alt="No Image Found"
-          />
-        </div>
-        <div
-          style="
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 13%;
-          "
-          *ngIf="auction.auctionStatus === 'UPCOMING'"
-        >
-          <button (click)="editAuction(auction.auctionId)" class="btn">
-            Edit
-          </button>
-          <button (click)="deleteAuction(auction.auctionId)" class="btn">
-            Delete
-          </button>
-        </div>
-      </div>
-
-      <app-pagination
-        [pageSize]="pageSize"
-        [totalItems]="totalItems"
-        [currentPage]="currentPage"
-        (pageChange)="onPageChange($event)"
-      ></app-pagination>
-    </div> -->
   </div>
 </div>

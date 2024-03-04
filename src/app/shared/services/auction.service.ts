@@ -109,4 +109,35 @@ export class AuctionService {
   registerForAuction(userId:string , auctionId:string){
     return this.http.post<any>(`http://localhost:8080/auction-registrations/register?userId=${userId}&auctionId=${auctionId}`,null);
   }
+  registeredAuctionsForUser(userId:string , flag:number){
+    return this.http.get<any>(`http://localhost:8080/auction-registrations/registration/${userId}?flag=${flag}`);
+  }
+
+  onClickBid(userId: any, auctionId: any  , bidAmount:any) {
+    return this.http.post<any>(`http://localhost:8080/bid/post-bids?userId=${userId}&auctionId=${auctionId}&bidAmount=${bidAmount}`,null);
+  }
+
+  registeredUsersForAuction(auctionId:any){
+    return this.http.get<any>(`http://localhost:8080/auction-registrations/get-registered-users/${auctionId}`)
+  }
+
+  deleteUserByUserId(userid:string){
+    return this.http.delete<any>(`http://localhost:8080/bid/delete/${userid}`)
+  }
+
+  getWinner(auctionId:string){
+    return this.http.get<any>(`http://localhost:8080/bid/get-winner?auctionId=${auctionId}`)
+  }
+
+  truncateBidsTable(){
+    return this.http.get<any>(`http://localhost:8080/bid/truncate`)
+  }
+
+  unregisterUserFromAuction(userId:any , auctionId:any){
+    return this.http.delete<any>(`http://localhost:8080/auction-registrations/unregister?userId=${userId}&auctionId=${auctionId}`)
+  }
+
+  getBidHistory(){
+    return this.http.get<any>(`http://localhost:8080/bid/get-all-bids`)
+  }
 }

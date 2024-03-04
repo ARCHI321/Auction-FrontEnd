@@ -40,7 +40,7 @@
       <h2>Post an Item for Auction</h2>
       <form (ngSubmit)="postItem()" #itemForm="ngForm">
         <div class="form-group">
-          <label for="itemName">Item Name:</label>
+          <label for="itemName">Item Name(uneditable):</label>
           <input
             type="text"
             id="itemName"
@@ -50,7 +50,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="itemDescription">Item Description:</label>
+          <label for="itemDescription">Item Description(uneditable):</label>
           <textarea
             id="itemDescription"
             name="itemDescription"
@@ -66,10 +66,12 @@
             name="startingPrice"
             [(ngModel)]="newItem.startingPrice"
             required
+            min="1000"
+            (ngModelChange)="validateAmount()"
           />
         </div>
         <div class="form-group">
-          <label for="selectedCategory">Select a Category:</label>
+          <label for="selectedCategory">Select a Category(uneditable):</label>
           <select
             id="selectedCategory"
             (change)="showSelectedCategory()"
@@ -84,7 +86,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="selectAuctionType">Select a Type:</label>
+          <label for="selectAuctionType">Select a Type(uneditable):</label>
           <select
             id="selectAuctionType"
             (change)="showSelectedAuctionType()"
@@ -101,8 +103,20 @@
             </option>
           </select>
         </div>
+        <div *ngIf="newItem.auctionType == 'Paid'" class="form-group">
+          <label for="amount">Enter Amount:(uneditable):</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            [(ngModel)]="newItem.registerFee"
+            required
+            min="1000"
+            (ngModelChange)="validateAmount()"
+          />
+        </div>
         <div class="form-group">
-          <label for="itemImage">Item Image:</label>
+          <label for="itemImage">Item Image(uneditable):</label>
           <input
             type="file"
             id="itemImage"
@@ -114,7 +128,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="datetime">Select Date:</label>
+          <label for="datetime">Select Date(uneditable):</label>
           <input
             type="date"
             id="datetime"
@@ -138,7 +152,7 @@
             name="selectSlot"
             required
           >
-            <option selected disabled>Select a Slot</option>
+            <option selected disabled>Select a Slot(uneditable):</option>
             <option
               *ngFor="let slotStatusObj of slotStatus"
               [value]="slotStatusObj.slotNumber"

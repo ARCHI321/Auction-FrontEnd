@@ -54,4 +54,8 @@ export class NotificationService {
   get messages() {
     return this.messagesSubject.asObservable();
   }
+
+  public disconnect(){
+    this.wsService.disconnect();
+  }
 }
