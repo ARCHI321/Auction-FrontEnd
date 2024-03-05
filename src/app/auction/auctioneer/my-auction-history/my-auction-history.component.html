@@ -48,6 +48,9 @@
           <p class="pTag">Category : {{ auction.category }}</p>
           <p class="pTag">StartingPrice : {{ auction.startingPrice }}</p>
           <p class="pTag">auctionType : {{ auction.auctionType }}</p>
+          <p class="pTag" *ngIf="auction.auctionType == 'Paid'">
+            registerFee : {{ auction.registerFee }}
+          </p>
           <p class="pTag">auctionStatus : {{ auction.auctionStatus }}</p>
           <p class="pTag">Date : {{ auction.date }}</p>
           <p class="pTag">slotNumber : {{ auction.slot.slotNumber }}</p>
@@ -100,9 +103,10 @@
       <h2 style="text-align: center">Auction History</h2>
       <div *ngIf="auctionHistory.length > 0; else noHistory">
         <div *ngFor="let item of auctionHistory" class="history-item">
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.title }}</h3>
           <p>Description: {{ item.description }}</p>
-          <p>Final Price: {{ item.finalPrice }}</p>
+          <p>Final Price: {{ item.currentPrice }}</p>
+          <p>Winner: {{ item.winnerId }}</p>
         </div>
       </div>
       <ng-template #noHistory>

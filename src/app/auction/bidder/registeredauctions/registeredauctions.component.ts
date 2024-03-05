@@ -13,11 +13,22 @@ export class RegisteredauctionsComponent {
   constructor(private auctionService: AuctionService) { }
 
   ngOnInit(): void {
-    const userId = 'user123';
-    // this.auctionService.getRegisteredAuctions(userId).subscribe(data => {
-    //   this.registeredAuctions = data;
-    // });
-    this.registeredAuctions = this.auctionService.getRegisteredAuctions(userId);
-    this.backLocation = "bid-home-page";
+    const userId = sessionStorage.getItem('username');
+
+    this.auctionService.registeredAuctionsForUser(userId!, 1).subscribe(
+      (response: any) => {
+        if (response && response.content) {
+          console.log(response.content);
+          this.registeredAuctions = [];
+          this.registeredAuctions = [...response.content];
+        } else {
+          console.error('Invalid response or response content is undefined.');
+        }
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+
   }
 }

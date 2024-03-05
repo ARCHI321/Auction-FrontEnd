@@ -40,7 +40,7 @@
       <h2>Post an Item for Auction</h2>
       <form (ngSubmit)="postItem()" #itemForm="ngForm">
         <div class="form-group">
-          <label for="itemName">Item Name(uneditable):</label>
+          <label for="itemName">Item Name:</label>
           <input
             type="text"
             id="itemName"
@@ -50,7 +50,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="itemDescription">Item Description(uneditable):</label>
+          <label for="itemDescription">Item Description:</label>
           <textarea
             id="itemDescription"
             name="itemDescription"
@@ -59,7 +59,7 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <label for="startingPrice">Starting Price:</label>
+          <label for="startingPrice">Starting Price(Min Rs 1000):</label>
           <input
             type="number"
             id="startingPrice"
@@ -71,7 +71,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="selectedCategory">Select a Category(uneditable):</label>
+          <label for="selectedCategory">Select a Category:</label>
           <select
             id="selectedCategory"
             (change)="showSelectedCategory()"
@@ -104,16 +104,8 @@
           </select>
         </div>
         <div *ngIf="newItem.auctionType == 'Paid'" class="form-group">
-          <label for="amount">Enter Amount:(uneditable):</label>
-          <input
-            type="number"
-            id="amount"
-            name="amount"
-            [(ngModel)]="newItem.registerFee"
-            required
-            min="1000"
-            (ngModelChange)="validateAmount()"
-          />
+          <label for="amount">Register Amount:(Fixed):</label>
+          <input type="number" id="amount" name="amount" value="400" readonly />
         </div>
         <div class="form-group">
           <label for="itemImage">Item Image(uneditable):</label>

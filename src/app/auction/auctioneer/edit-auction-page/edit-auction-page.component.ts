@@ -13,11 +13,7 @@ interface AuctionItem {
   name: string;
   description: string;
   startingPrice: number;
-  image: File | null;
-  date: any;
   category: string;
-  slot: number;
-  auctionType: string;
 }
 
 @Component({
@@ -30,11 +26,7 @@ export class EditAuctionPageComponent {
     name: '',
     description: '',
     startingPrice: 0,
-    image: null,
-    date: '',
     category: '',
-    slot: 0,
-    auctionType: '' ,
   };
 
 
@@ -97,29 +89,7 @@ export class EditAuctionPageComponent {
         this.newItem.name = this.auctionvalue.title;
         this.newItem.description = this.auctionvalue.description;
         this.newItem.startingPrice = this.auctionvalue.startingPrice;
-        this.newItem.date = this.auctionvalue.date;
         this.newItem.category = this.auctionvalue.category;
-
-        this.newItem.auctionType = this.auctionvalue.auctionType;
-        this.newItem.image = this.auctionvalue.file;
-        const observables = [];
-
-        for (var i = 1; i <= 8; i++) {
-          observables.push(this.auctionService.getSlotStatus(this.newItem.date, i));
-        }
-
-        forkJoin(observables).subscribe(
-          (responses: any[]) => {
-              this.slotStatus = responses;
-              console.log(this.slotStatus);
-              this.newItem.slot = this.auctionvalue.slotNumber;
-              this.isDateSelected = true;
-         },
-         (error: any) => {
-        // Handle error
-             console.error('Error:', error);
-         }
-       );
 
 
       },
@@ -229,44 +199,11 @@ export class EditAuctionPageComponent {
     // Handle the selected category as needed
     console.log('Selected category:', this.newItem.category);
   }
-  showSelectedAuctionType() {
-    // Handle the selected category as needed
-    console.log('Selected category:', this.newItem.auctionType);
-  }
-  showSelectedSlot(){
-    this.isSlotSelected = true;
-    this.timingForSlot  = this.slotTiming.find(slot => slot.slotNumber === +this.newItem.slot);
-
-  }
-
-  onDateSelected() {
-    console.log(this.isDateSelected);
-
-    console.log('Selected Date:', this.newItem.date);
-
-    console.log(this.isDateSelected);
-
-    const observables = [];
-
-    for (var i = 1; i <= 8; i++) {
-      observables.push(this.auctionService.getSlotStatus(this.newItem.date, i));
-    }
-
-    forkJoin(observables).subscribe(
-      (responses: any[]) => {
-        this.slotStatus = responses;
-        console.log(this.slotStatus);
-        this.isDateSelected = true;
-      },
-      (error: any) => {
-        // Handle error
-        console.error('Error:', error);
-      }
-    );
 
 
 
-    }
+
+
 
 
 
@@ -285,12 +222,7 @@ export class EditAuctionPageComponent {
       formData.append('description', this.newItem.description);
       formData.append('startingPrice', String(this.newItem.startingPrice));
       formData.append('category', this.newItem.category);
-      formData.append('date', this.newItem.date);
-      formData.append('slotNumber', String(this.newItem.slot));
-      if (this.newItem.image !== null) {
-        formData.append('file', this.newItem.image);
-        }
-      formData.append('auctionType', this.newItem.auctionType);
+
       formData.append('sellerId', String(sessionStorage.getItem('username')));
 
 
@@ -302,10 +234,6 @@ export class EditAuctionPageComponent {
           name: '',
           description: '',
           startingPrice: 0,
-          image:null,
-          date:'',
-          slot:0,
-          auctionType:'',
           category:''
         };
         this.isSlotSelected = false;
@@ -343,13 +271,5 @@ export class EditAuctionPageComponent {
     );
   }
 
-  onFileSelected(event: any) {
 
-    const file: File = event.target.files[0];
-
-    console.log("Image selected : " ,this.newItem.image);
-    this.newItem.image = file;
-    console.log("Image selected : " ,this.newItem.image);
-
-  }
 }

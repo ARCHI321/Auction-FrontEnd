@@ -39,7 +39,7 @@ export class AuctionhomepageComponent {
     category: '',
     slot: 0,
     auctionType: '',
-    registerFee: 0,
+    registerFee: 400,
   };
 
   auctionItems: AuctionItem[] = [];
@@ -129,7 +129,7 @@ export class AuctionhomepageComponent {
         this.authService.getUserById(userId).subscribe(
           (response: any) => {
             // Handle successful response
-            console.log('User:', response);
+            //console.log('User:', response);
             this.responseData = response;
             this.dataService.sendData(this.responseData);
           },
@@ -184,6 +184,7 @@ export class AuctionhomepageComponent {
   showSelectedAuctionType() {
     // Handle the selected category as needed
     console.log('Selected category:', this.newItem.auctionType);
+
   }
   showSelectedSlot() {
     this.isSlotSelected = true;
@@ -282,13 +283,18 @@ export class AuctionhomepageComponent {
       formData.append('description', this.newItem.description);
       formData.append('startingPrice', String(this.newItem.startingPrice));
       formData.append('category', this.newItem.category);
-      formData.append('registerFee', String(this.newItem.registerFee));
       formData.append('date', this.newItem.date);
       formData.append('slotNumber', String(this.newItem.slot));
       if (this.newItem.image !== null) {
         formData.append('file', this.newItem.image);
       }
       formData.append('auctionType', this.newItem.auctionType);
+      if(this.newItem.auctionType == 'Paid'){
+        formData.append('registerFee', String(this.newItem.registerFee));
+      }
+      else{
+        formData.append('registerFee', String(0));
+      }
       formData.append('sellerId', String(sessionStorage.getItem('username')));
 
       this.subscriptions.push(
@@ -315,7 +321,7 @@ export class AuctionhomepageComponent {
         date: '',
         slot: 0,
         auctionType: '',
-        registerFee: 0,
+        registerFee: 400,
         category: '',
       };
       this.isSlotSelected = false;
@@ -352,6 +358,8 @@ export class AuctionhomepageComponent {
     if (this.newItem.startingPrice < 1000) {
       this.newItem.startingPrice = 1000;
     }
+
+
   }
 
   ngOnDestroy() {

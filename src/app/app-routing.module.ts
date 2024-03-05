@@ -16,6 +16,8 @@ import { EditProfileComponent } from './auction/profile-features/edit-profile/ed
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { EditAuctionPageComponent } from './auction/auctioneer/edit-auction-page/edit-auction-page.component';
 import { BidHistoryComponent } from './auction/bidder/bid-history/bid-history.component';
+import { PaymentComponent } from './auction/app-payment/payment/payment.component';
+import { TransactionHistoryComponent } from './auction/bidder/transaction-history/transaction-history.component';
 
 
 
@@ -35,6 +37,8 @@ const routes: Routes = [
   { path: 'edit-profile', component: EditProfileComponent , canActivate: [AuthGuard]},
   { path: 'edit-auction-page', component: EditAuctionPageComponent , canActivate: [AuthGuard]},
   { path: 'bid-history', component: BidHistoryComponent , canActivate: [AuthGuard] },
+  { path: 'transaction-history', component: TransactionHistoryComponent , canActivate: [AuthGuard] },
+  { path: 'payment', component: PaymentComponent , canActivate: [AuthGuard] },
   { path: '**', component:Error404Component }
 ];
 
