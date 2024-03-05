@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +19,10 @@ import { AuctionhomepageComponent } from './auction/auctioneer/auctionhomepage/a
 import { MyAuctionHistoryComponent } from './auction/auctioneer/my-auction-history/my-auction-history.component';
 import { LogoutComponent } from './shared/logout/logout.component';
 import { BidhomepageComponent } from './auction/bidder/bidhomepage/bidhomepage.component';
-import { AUCTION_SERVICE_TOKEN, AuctionService } from './shared/services/auction.service';
+import {
+  AUCTION_SERVICE_TOKEN,
+  AuctionService,
+} from './shared/services/auction.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { BiddingpageComponent } from './auction/bidder/biddingpage/biddingpage.component';
@@ -32,7 +38,11 @@ import { EditProfileComponent } from './auction/profile-features/edit-profile/ed
 import { ExitConfirmationComponent } from './shared/exit-confirmation/exit-confirmation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faLinkedin, faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import {
+  faLinkedin,
+  faFacebookSquare,
+  faInstagram,
+} from '@fortawesome/free-brands-svg-icons';
 import { BasicAuthHttpInterceptorService } from './shared/services/basic-auth-http-interceptor.service';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { PaginationComponent } from './auction/pagination/pagination.component';
@@ -41,8 +51,7 @@ import { CarouselComponent } from './shared/carousel/carousel.component';
 import { BidHistoryComponent } from './auction/bidder/bid-history/bid-history.component';
 import { UppercasePipe } from './shared/services/uppercase.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-
+import { PaymentComponent } from './auction/app-payment/payment/payment.component';
 
 library.add(faLinkedin, faFacebookSquare, faInstagram);
 
@@ -72,7 +81,8 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     PaginationComponent,
     EditAuctionPageComponent,
     BidHistoryComponent,
-    UppercasePipe 
+    UppercasePipe,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,18 +96,21 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     CommonModule,
     FontAwesomeModule,
     MatTooltipModule,
-    RouterModule.forRoot([])
-
-
+    
+    RouterModule.forRoot([]),
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
     { provide: AUCTION_SERVICE_TOKEN, useClass: AuctionService },
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHttpInterceptorService, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BasicAuthHttpInterceptorService,
+      multi: true,
+    },
     // { provide: LocationStrategy, useClass: HashLocationStrategy },
-    DatePipe
+    DatePipe,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
