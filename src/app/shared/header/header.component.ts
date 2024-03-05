@@ -51,7 +51,6 @@ export class HeaderComponent {
 
   toggleDropdown() {
     console.log(this.showDropdown);
-
     this.showDropdown = !this.showDropdown;
   }
 
@@ -82,5 +81,8 @@ export class HeaderComponent {
 
   getIconContent(icon: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(icon);
+  }
+   closeDropdown() {
+    this.showDropdown = false;
   }
 }

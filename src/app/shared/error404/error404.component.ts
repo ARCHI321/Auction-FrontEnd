@@ -17,7 +17,7 @@ export class Error404Component {
     setTimeout(() =>{
       this.router.navigateByUrl('/');
 
-    },5000);
+    },2000);
     this.authService.logout();
 
   }

@@ -99,7 +99,7 @@ export class EditProfileComponent {
       // If the subscription takes longer than 5000 milliseconds, set isLoading to false
       setTimeout(() => {
         this.isLoading = false;
-      }, 5000);
+      }, 100);
     });
   }
 

@@ -1,140 +1,128 @@
-<div style="width: 100vw; height: 100vh; display: flex" *ngIf="isLoading">
-  <div
-    style="
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      display: flex;
-      flex-direction: column-reverse;
-    "
-  >
-    <app-loading-spinner
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      "
-    ></app-loading-spinner>
-
-    <h2 style="display: flex; align-items: center; justify-content: center">
-      Loading
-    </h2>
-  </div>
-</div>
-
-<div
-  *ngIf="!isLoading"
-  class="whole-container"
-  [@fadeInAnimation]="animationState"
->
-  <div>Edit Profile</div>
-  <div class="details-container">
+<div class="main-container">
+  <div class="container emp-profile justigy-content-ceter">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <label for="fullName">Name:</label>
-      <div id="username-privacy">
-        <input
-          type="text"
-          id="fullName"
-          formControlName="fullName"
-          required
-          readonly
-        />
-        <p style="padding-left: 10px">Public</p>
-        <div
-          class="privacy-slider"
-          [class.namePrivate]="false"
-          (click)="toggleNamePrivacy()"
-        >
-          <div class="slider-handle"></div>
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <div class="profile-img">
+            <img src="/assets/images/profile-img.jpg" alt="" />
+          </div>
+          <h2 style="text-align: center">
+            {{ receivedData.name | uppercase }}
+          </h2>
+          <div class="profile-btn">
+            <button routerLink="/my-profile" class="profile-edit-btn">
+              Profile
+            </button>
+          </div>
         </div>
-        <p>Private</p>
-      </div>
-      <label for="userName">Username:</label>
-
-      <div id="username-privacy">
-        <input
-          type="text"
-          id="userName"
-          formControlName="userName"
-          required
-          readonly
-        />
-        <p style="padding-left: 10px">Public</p>
-        <div
-          class="privacy-slider"
-          [class.namePrivate]="false"
-          (click)="toggleNamePrivacy()"
-        >
-          <div class="slider-handle"></div>
+        <div class="col-md-8">
+          <div class="profile-head">
+            <h1>My Profile</h1>
+            <hr />
+          </div>
+          <div class="tab-content profile-tab" id="myTabContent">
+            <div class="row">
+              <div class="col-md-6">
+                <label>User Name</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{ receivedData?.userId }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Name</label>
+              </div>
+              <div class="col-md-6">
+                <p>{{ receivedData.name }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <label>Email</label>
+              </div>
+              <label class="toggle col-3">
+                <input
+                  class="privacy-slider"
+                  [checked]="!isEmailPrivate"
+                  (click)="toggleEmailPrivacy()"
+                  class="toggle-checkbox"
+                  type="checkbox"
+                />
+                <div class="toggle-switch"></div>
+                <span class="toggle-label">Public</span>
+              </label>
+              <div class="col-6 edit-input">
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  required
+                  value="{{ receivedData.email }}"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <label>Phone</label>
+              </div>
+              <label class="toggle col-3">
+                <input
+                  class="privacy-slider"
+                  [checked]="!isPhonePrivate"
+                  (click)="togglePhonePrivacy()"
+                  class="toggle-checkbox"
+                  type="checkbox"
+                />
+                <div class="toggle-switch"></div>
+                <span class="toggle-label">Public</span>
+              </label>
+              <div class="col-6 edit-input">
+                <input
+                  type="text"
+                  id="phone"
+                  formControlName="phone"
+                  value=" {{ receivedData.phoneNumber }} "
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-3">
+                <label>Address</label>
+              </div>
+              <label class="toggle col-3">
+                <input
+                  class="privacy-slider"
+                  [checked]="!isAddressPrivate"
+                  (click)="toggleAddressPrivacy()"
+                  class="toggle-checkbox"
+                  type="checkbox"
+                />
+                <div class="toggle-switch"></div>
+                <span class="toggle-label">Public</span>
+              </label>
+              <div class="col-6 edit-input">
+                <textarea
+                  id="address"
+                  formControlName="address"
+                  value="{{ receivedData.address }}"
+                  required
+                ></textarea>
+              </div>
+            </div>
+          </div>
         </div>
-        <p>Private</p>
       </div>
-
-      <label for="phone">Phone:</label>
-      <div id="phone-privacy">
-        <input type="text" id="phone" formControlName="phone" required />
-        <p style="padding-left: 10px">Public</p>
-        <div
-          class="privacy-slider"
-          [class.phonePrivate]="!isPhonePrivate"
-          (click)="togglePhonePrivacy()"
+      <div class="profile-btn">
+        <button
+          type="submit"
+          [disabled]="profileForm.invalid"
+          class="submit-btn"
         >
-          <div class="slider-handle"></div>
-        </div>
-        <p>Private</p>
+          Submit
+        </button>
       </div>
-
-      <label for="email">Email:</label>
-      <div id="email-privacy">
-        <input
-          type="email"
-          id="email"
-          formControlName="email"
-          required
-          readonly
-        />
-        <p style="padding-left: 10px">Public</p>
-        <div
-          class="privacy-slider"
-          [class.emailPrivate]="!isEmailPrivate"
-          (click)="toggleEmailPrivacy()"
-        >
-          <div class="slider-handle"></div>
-        </div>
-        <p>Private</p>
-      </div>
-
-      <label for="upiId">UpiId:</label>
-      <div id="upiId-privacy">
-        <input type="text" id="upiId" formControlName="upiId" required />
-        <p style="padding-left: 10px">Public</p>
-        <div
-          class="privacy-slider"
-          [class.upiPrivate]="!isUpiIdPrivate"
-          (click)="toggleUpiIdPrivacy()"
-        >
-          <div class="slider-handle"></div>
-        </div>
-        <p>Private</p>
-      </div>
-
-      <label for="address">Address:</label>
-      <div id="address-privacy">
-        <textarea id="address" formControlName="address" required></textarea>
-        <p style="padding-left: 10px">Public</p>
-        <div
-          class="privacy-slider"
-          [class.addressPrivate]="!isAddressPrivate"
-          (click)="toggleAddressPrivacy()"
-        >
-          <div class="slider-handle"></div>
-        </div>
-        <p>Private</p>
-      </div>
-
-      <br />
-      <button type="submit" [disabled]="profileForm.invalid">Submit</button>
     </form>
   </div>
 </div>

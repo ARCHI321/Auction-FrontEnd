@@ -1,7 +1,72 @@
-<div class="card">
-  <div class="card-header">User Information</div>
-  <div class="card-body">
-    <p><strong>Full Name:</strong> {{ receivedData.name }}</p>
-    <p><strong>Email:</strong> {{ receivedData.email }}</p>
+<div class="main-container">
+  <div class="container emp-profile justigy-content-ceter">
+    <form method="post">
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <div class="profile-img">
+            <img src="/assets/images/profile-img.jpg" alt="" />
+          </div>
+          <h2 style="text-align: center">
+            {{ receivedData.name | uppercase }}
+          </h2>
+          <div class="profile-btn">
+            <button routerLink="/edit-profile" class="profile-edit-btn">
+              Edit Profile
+            </button>
+            <button routerLink="/forgot-password" class="profile-edit-btn">
+              Reset Password
+            </button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="profile-head">
+            <h1>My Profile</h1>
+            <hr />
+          </div>
+          <div class="tab-content profile-tab" id="myTabContent">
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <label>User Id</label>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>{{ receivedData.userId }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <label>Name</label>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>{{ receivedData.name }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <label>Email</label>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>{{ receivedData.email }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <label>Phone</label>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>{{ receivedData.phoneNumber }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-6">
+                <label>Address</label>
+              </div>
+              <div class="col-md-6 col-6">
+                <p>{{ receivedData.address }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

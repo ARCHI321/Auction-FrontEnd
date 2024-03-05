@@ -39,6 +39,8 @@ import { PaginationComponent } from './auction/pagination/pagination.component';
 import { EditAuctionPageComponent } from './auction/auctioneer/edit-auction-page/edit-auction-page.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
 import { BidHistoryComponent } from './auction/bidder/bid-history/bid-history.component';
+import { UppercasePipe } from './shared/services/uppercase.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -69,7 +71,8 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     ForgotPasswordComponent,
     PaginationComponent,
     EditAuctionPageComponent,
-    BidHistoryComponent
+    BidHistoryComponent,
+    UppercasePipe 
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,7 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     SlickCarouselModule,
     CommonModule,
     FontAwesomeModule,
+    MatTooltipModule,
     RouterModule.forRoot([])
 
 

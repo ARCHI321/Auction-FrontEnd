@@ -1,3 +1,57 @@
-.card{
-    z-index: -1;
+.main-container {
+  max-width: 1440px;
+  margin: 100px auto;
+  padding: 15px;
 }
+.emp-profile {
+  padding: 3%;
+  border-radius: 0.5rem;
+  background: #e2e9ee;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+  border: 2px solid #cccccc;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.profile-img {
+  margin-bottom: 10px;
+}
+
+.profile-img img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+.profile-btn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-tab label {
+  font-weight: 500;
+  font-family: karla;
+  font-size: 1.15rem;
+}
+.profile-tab p {
+  font-family: karla;
+  font-size: 1rem;
+}
+
+.profile-edit-btn {
+       font-family: karla;
+    border: none;
+    border-radius: 1rem;
+    width: 120px;
+    padding: 1%;
+    font-weight: 600;
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
