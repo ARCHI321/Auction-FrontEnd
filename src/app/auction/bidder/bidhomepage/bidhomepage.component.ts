@@ -298,6 +298,8 @@ export class BidhomepageComponent {
   }
 
   register(auction: any) {
+
+    if(auction.auctionType == 'Free'){
     const userId = sessionStorage.getItem('username') ?? '';
     this.auctionService.registerForAuction(userId, auction.auctionId).subscribe(
       (response: any) => {
@@ -320,6 +322,38 @@ export class BidhomepageComponent {
         console.log(error);
       }
     );
+    }
+    else{
+      const userId = sessionStorage.getItem('username') ?? '';
+
+      const navigationExtras: NavigationExtras = {
+        state: {
+          auctionId: auction.auctionId,
+          userId: userId,
+          amount: auction.registerFee,
+          isRegistry:true
+        },
+      };
+      this.auctionService.registerForAuction(userId, auction.auctionId).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
+            (response: any) => {
+              console.log(response);
+              this.registeredAuctions = [];
+              this.registeredAuctions = [...response];
+            },
+            (error: any) => {
+              console.log(error);
+            }
+          );
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+      this.router.navigate(['/payment'], navigationExtras);
+    }
   }
 
   isRegistered(auctionId: number): boolean {

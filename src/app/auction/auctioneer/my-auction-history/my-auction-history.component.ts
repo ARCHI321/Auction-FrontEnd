@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 
 
 interface AuctionHistoryItem {
-  name: string;
+  title: any;
   description: string;
-  finalPrice: number;
+  currentPrice: number;
+  winnerId:string
 }
 
 
@@ -31,13 +32,18 @@ export class MyAuctionHistoryComponent {
 
   ngOnInit(): void {
 
-    this.auctionHistory = [
-      { name: 'Item 1', description: 'Description of Item 1', finalPrice: 150 },
-      { name: 'Item 2', description: 'Description of Item 2', finalPrice: 200 },
-      { name: 'Item 3', description: 'Description of Item 3', finalPrice: 180 }
-    ];
+    // this.auctionHistory = [
+    //   { name: 'Item 1', description: 'Description of Item 1', finalPrice: 150 },
+    //   { name: 'Item 2', description: 'Description of Item 2', finalPrice: 200 },
+    //   { name: 'Item 3', description: 'Description of Item 3', finalPrice: 180 }
+    // ];
 
-    this.loadAuctions();
+    console.log(this.authService.getUserRole());
+
+    if(this.authService.getUserRole() === 'auctionner')
+        this.loadAuctions();
+    if(this.authService.getUserRole() === 'bidder')
+        this.loadAll();
 
 
 
@@ -112,6 +118,39 @@ export class MyAuctionHistoryComponent {
       },
       (error: any) => {
         console.error('Error:', error);
+      }
+    );
+
+
+
+  }
+
+  loadAll(){
+    const userId = sessionStorage.getItem('username');
+
+    this.auctionService.getAllAuctions(this.currentPage - 1).subscribe(
+      (response: any) => {
+        console.log(response)
+        this.auctionHistory = response.content;
+
+        this.auctions.sort((a, b) => {
+          const dateTimeA = `${a.slot.date} ${a.slot.startTime}`;
+          const dateTimeB = `${b.slot.date} ${b.slot.startTime}`;
+
+          const timestampA = new Date(dateTimeA).getTime();
+          const timestampB = new Date(dateTimeB).getTime();
+
+          return timestampA - timestampB;
+        });
+        this.totalItems = response.totalElements;
+
+
+        console.log(this.auctionHistory);
+        this.isLoading = false;
+      },
+      (error: any) => {
+        console.error('Error:', error);
+        this.isLoading = false;
       }
     );
   }

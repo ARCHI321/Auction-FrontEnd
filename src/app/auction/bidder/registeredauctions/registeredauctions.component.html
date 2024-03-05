@@ -5,9 +5,12 @@
       <h2 style="text-align: center">Registered Auctions</h2>
       <div *ngIf="registeredAuctions.length > 0; else noHistory">
         <div *ngFor="let item of registeredAuctions" class="history-item">
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.title }}</h3>
           <p>Description: {{ item.description }}</p>
-          <p>Final Price: {{ item.finalPrice }}</p>
+          <p>Final Price: {{ item.currentPrice }}</p>
+          <p>Auction Status: {{ item.auctionStatus }}</p>
+          <p>Date: {{ item.date }}</p>
+          <p>Starting Price: {{ item.startingPrice }}</p>
         </div>
       </div>
       <ng-template #noHistory>

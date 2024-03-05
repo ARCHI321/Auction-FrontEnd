@@ -1,5 +1,7 @@
 <header class="p-3 bg-color">
-  <div class="container d-flex flex-wrap align-items-center justify-content-between">
+  <div
+    class="container d-flex flex-wrap align-items-center justify-content-between"
+  >
     <div class="mb-2 mb-lg-0 t">
       <div class="icon-banner" routerLink="/">
         <div class="icon" [innerHTML]="getIconContent(mainlogo)"></div>
@@ -8,21 +10,37 @@
     </div>
     <div *ngIf="!isLoggedIn">
       <div class="text-end">
-        <button type="button" routerLink="/signin" class="btn btn-light btn-outline-success me-2 btn-lg">
+        <button
+          type="button"
+          routerLink="/signin"
+          class="btn btn-light btn-outline-success me-2 btn-lg"
+        >
           Login
         </button>
-        <button type="button" routerLink="/signup" class="btn btn-outline-warning btn-lg">
+        <button
+          type="button"
+          routerLink="/signup"
+          class="btn btn-outline-warning btn-lg"
+        >
           Sign-up
         </button>
       </div>
     </div>
-    <div style="
+    <div
+      style="
         display: flex;
         align-items: center;
         width: 12%;
         justify-content: space-around;
-      " *ngIf="isLoggedIn" class="dashboard">
-      <div style="margin-right: 5px" class="notification-icon" (click)="toggleNotifications()">
+      "
+      *ngIf="isLoggedIn"
+      class="dashboard"
+    >
+      <div
+        style="margin-right: 5px"
+        class="notification-icon"
+        (click)="toggleNotifications()"
+      >
         <i style="font-size: 25px" class="fas fa-bell"></i>
         <!-- Assuming you're using Font Awesome for icons -->
       </div>
@@ -42,11 +60,24 @@
         <a *ngIf="isAuctioneer()" routerLink="/auction-items">Home</a>
         <a routerLink="/my-profile">Profile</a>
         <a routerLink="/edit-profile">Edit Profile</a>
-        <a (click)="switchProfile('bidder')" *ngIf="isAuctioneer()">Switch to Bidder Profile</a>
-        <a (click)="switchProfile('auctionner')" *ngIf="isBidder()">Switch to Auctionner Profile</a>
-        <a *ngIf="isBidder()" routerLink="/registered-auctions">Registered Auctions</a>
-        <a *ngIf="isAuctioneer()" routerLink="/my-auction-history">My Auctioned Items</a>
-        <a *ngIf="isBidder()" routerLink="/my-auction-history">All Auctioned Items</a>
+        <a (click)="switchProfile('bidder')" *ngIf="isAuctioneer()"
+          >Switch to Bidder Profile</a
+        >
+        <a (click)="switchProfile('auctionner')" *ngIf="isBidder()"
+          >Switch to Auctionner Profile</a
+        >
+        <a *ngIf="isBidder()" routerLink="/registered-auctions"
+          >Registered Auctions</a
+        >
+        <a *ngIf="isBidder()" routerLink="/transaction-history"
+          >Registered Auctions</a
+        >
+        <a *ngIf="isAuctioneer()" routerLink="/my-auction-history"
+          >My Auctioned Items</a
+        >
+        <a *ngIf="isBidder()" routerLink="/my-auction-history"
+          >All Auctioned Items</a
+        >
         <app-logout></app-logout>
       </div>
     </div>

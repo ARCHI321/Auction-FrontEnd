@@ -39,6 +39,9 @@ import { PaginationComponent } from './auction/pagination/pagination.component';
 import { EditAuctionPageComponent } from './auction/auctioneer/edit-auction-page/edit-auction-page.component';
 import { CarouselComponent } from './shared/carousel/carousel.component';
 import { BidHistoryComponent } from './auction/bidder/bid-history/bid-history.component';
+import { PaymentComponent } from './auction/app-payment/payment/payment.component';
+import { TransactionHistoryComponent } from './auction/bidder/transaction-history/transaction-history.component';
+
 
 
 
@@ -69,7 +72,9 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     ForgotPasswordComponent,
     PaginationComponent,
     EditAuctionPageComponent,
-    BidHistoryComponent
+    BidHistoryComponent,
+    PaymentComponent,
+    TransactionHistoryComponent
   ],
   imports: [
     BrowserModule,

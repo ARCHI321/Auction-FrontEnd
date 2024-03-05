@@ -88,6 +88,9 @@
           <p>Start Time: {{ auction.startTime | date : "medium" }}</p>
           <p class="pTag">Category : {{ auction.category }}</p>
           <p class="pTag">auctionType : {{ auction.auctionType }}</p>
+          <p class="pTag" *ngIf="auction.auctionType == 'Paid'">
+            registerFee : {{ auction.registerFee }}
+          </p>
           <p class="pTag">auctionStatus : {{ auction.auctionStatus }}</p>
           <p class="pTag">Date : {{ auction.date }}</p>
           <p class="pTag">slotNumber : {{ auction.slot.slotNumber }}</p>
@@ -107,8 +110,8 @@
             {{ formatTimeRemaining(auctionStartTimes[auction.auctionId]) }}
           </p>
         </div>
-        <p *ngIf="auction.isPaid">Paid Auction</p>
-        <p *ngIf="!auction.isPaid">Free Auction</p>
+        <p *ngIf="auction.auctionType == 'Paid'">Paid Auction</p>
+        <p *ngIf="auction.auctionType == 'Free'">Free Auction</p>
         <div>
           <button
             [ngStyle]="{
@@ -121,7 +124,7 @@
           >
             Register
           </button>
-          <!-- <button
+          <button
             style="margin-left: 10px"
             [ngStyle]="{
           'background-color': !isRegistered(auction.auctionId) ? 'gray' : 'blue',
@@ -129,10 +132,9 @@
           'cursor': !isRegistered(auction.auctionId) ? 'not-allowed' : 'pointer',
         }"
             [disabled]="!isRegistered(auction.auctionId)"
-            (click)="takePart(auction)"
           >
-            Take Part
-          </button> -->
+            UnRegister
+          </button>
         </div>
         <app-pagination
           [pageSize]="pageSize"

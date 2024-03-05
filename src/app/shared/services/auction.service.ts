@@ -106,6 +106,10 @@ export class AuctionService {
     return this.http.get<any>(`http://localhost:8080/auction/all?page=${page}`);
   }
 
+  getAllAuctions(page:number){
+    return this.http.get<any>(`http://localhost:8080/auction/all-auctions?page=${page}`);
+  }
+
   registerForAuction(userId:string , auctionId:string){
     return this.http.post<any>(`http://localhost:8080/auction-registrations/register?userId=${userId}&auctionId=${auctionId}`,null);
   }
@@ -139,5 +143,9 @@ export class AuctionService {
 
   getBidHistory(){
     return this.http.get<any>(`http://localhost:8080/bid/get-all-bids`)
+  }
+
+  getAllTransactionsByUserId(userId:string){
+    return this.http.get<any>(`http://localhost:8080/transactions/all-transactions-by-user?userId=${userId}`);
   }
 }
