@@ -34,13 +34,11 @@
 
 <div *ngIf="!isLoading" class="whole-container">
   <div class="container">
-    <h1>Welcome to the Auction Platform</h1>
-    <!-- <a id="myauction" routerLink="/my-auction-history">Edit Items</a> -->
     <div class="post-form">
       <h2>Edit Auction Items</h2>
       <form (ngSubmit)="editItem()" #itemForm="ngForm">
         <div class="form-group">
-          <label for="itemName">Item Name:</label>
+          <label for="itemName">Item Name</label>
           <input
             type="text"
             id="itemName"
@@ -50,7 +48,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="itemDescription">Item Description:</label>
+          <label for="itemDescription">Item Description</label>
           <textarea
             id="itemDescription"
             name="itemDescription"
@@ -59,7 +57,7 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <label for="startingPrice">Starting Price:</label>
+          <label for="startingPrice">Starting Price</label>
           <input
             type="number"
             id="startingPrice"

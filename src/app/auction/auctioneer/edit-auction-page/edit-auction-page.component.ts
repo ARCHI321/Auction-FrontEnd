@@ -3,7 +3,10 @@ import { log } from 'console';
 import { AuthService } from '../../../shared/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from '../../../shared/services/data.service';
-import { AUCTION_SERVICE_TOKEN, AuctionService } from '../../../shared/services/auction.service';
+import {
+  AUCTION_SERVICE_TOKEN,
+  AuctionService,
+} from '../../../shared/services/auction.service';
 import { forkJoin } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { ToastMessageService } from '../../../shared/services/toast-message.service';
@@ -19,7 +22,7 @@ interface AuctionItem {
 @Component({
   selector: 'app-edit-auction-page',
   templateUrl: './edit-auction-page.component.html',
-  styleUrl: './edit-auction-page.component.scss'
+  styleUrl: './edit-auction-page.component.scss',
 })
 export class EditAuctionPageComponent {
   newItem: AuctionItem = {
@@ -29,34 +32,37 @@ export class EditAuctionPageComponent {
     category: '',
   };
 
-
   auctionItems: AuctionItem[] = [];
   selectedDateTime!: string;
-  isLoading:boolean = true;
-  justLoggedIn!:boolean;
+  isLoading: boolean = true;
+  justLoggedIn!: boolean;
   responseData: any;
   categories: string[] = [];
   selectedCategory: string = '';
   minDate: string = new Date().toISOString().split('T')[0];
   allAuctionTypes: string[] = [];
-  selectAuctionType:string = '';
-  selectDate:any;
-  isDateSelected:boolean = false;
-  selectedSlot:number = 0;
+  selectAuctionType: string = '';
+  selectDate: any;
+  isDateSelected: boolean = false;
+  selectedSlot: number = 0;
   // slotStatus!: {status:string , start_time:any , end_time:any}[];
   slotStatus: any[] = [];
-  slotTiming: { slotNumber: number, start_time: Date, end_time: Date }[] = [];
+  slotTiming: { slotNumber: number; start_time: Date; end_time: Date }[] = [];
   @ViewChild('itemForm') itemForm!: NgForm;
-  isSlotSelected:boolean = false;
-  timingForSlot:any;
-  auctionId!:string;
-  auctionvalue:any;
+  isSlotSelected: boolean = false;
+  timingForSlot: any;
+  auctionId!: string;
+  auctionvalue: any;
 
-
-  constructor(private authService:AuthService , private dataService: DataService , @Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService , private toastMessageService:ToastMessageService,private activateRoute: ActivatedRoute,private route:Router){
-
-
-    this.activateRoute.params.subscribe(params => {
+  constructor(
+    private authService: AuthService,
+    private dataService: DataService,
+    @Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService,
+    private toastMessageService: ToastMessageService,
+    private activateRoute: ActivatedRoute,
+    private route: Router
+  ) {
+    this.activateRoute.params.subscribe((params) => {
       this.auctionId = params['id'];
     });
     const numberOfSlots = 8;
@@ -79,19 +85,16 @@ export class EditAuctionPageComponent {
       };
 
       this.slotTiming.push(newSlotTiming);
-  }
-
+    }
 
     this.auctionService.getAuctionItemByAuctionrid(this.auctionId).subscribe(
-      (response:any) => {
+      (response: any) => {
         this.auctionvalue = response;
         console.log(this.auctionvalue);
         this.newItem.name = this.auctionvalue.title;
         this.newItem.description = this.auctionvalue.description;
         this.newItem.startingPrice = this.auctionvalue.startingPrice;
         this.newItem.category = this.auctionvalue.category;
-
-
       },
       (error: any) => {
         // Handle error
@@ -100,17 +103,16 @@ export class EditAuctionPageComponent {
           console.log('Response Headers:', error.headers.keys());
           const authorizationHeader = error.headers.get('Authorization');
           if (authorizationHeader) {
-               console.log('Authorization Header:', authorizationHeader);
+            console.log('Authorization Header:', authorizationHeader);
           } else {
-                console.log('No Authorization Header found.');
+            console.log('No Authorization Header found.');
           }
         }
       }
-    )
-
+    );
 
     this.auctionService.getAllCategories().subscribe(
-      (response:any) => {
+      (response: any) => {
         this.categories = response;
       },
       (error: any) => {
@@ -120,16 +122,16 @@ export class EditAuctionPageComponent {
           console.log('Response Headers:', error.headers.keys());
           const authorizationHeader = error.headers.get('Authorization');
           if (authorizationHeader) {
-               console.log('Authorization Header:', authorizationHeader);
+            console.log('Authorization Header:', authorizationHeader);
           } else {
-                console.log('No Authorization Header found.');
+            console.log('No Authorization Header found.');
           }
         }
       }
-    )
+    );
 
     this.auctionService.getAllAuctionTypes().subscribe(
-      (response:any) => {
+      (response: any) => {
         this.allAuctionTypes = response;
       },
       (error: any) => {
@@ -139,81 +141,62 @@ export class EditAuctionPageComponent {
           console.log('Response Headers:', error.headers.keys());
           const authorizationHeader = error.headers.get('Authorization');
           if (authorizationHeader) {
-               console.log('Authorization Header:', authorizationHeader);
+            console.log('Authorization Header:', authorizationHeader);
           } else {
-                console.log('No Authorization Header found.');
+            console.log('No Authorization Header found.');
           }
         }
       }
-    )
-
-
-
-
+    );
   }
 
-  ngOnInit(){
-    setTimeout(()=>{
+  ngOnInit() {
+    setTimeout(() => {
       this.isLoading = false;
-    },3000);
+    }, 500);
     this.authService.setJustLoggedIn(false);
 
-
-    setTimeout(()=>{
+    setTimeout(() => {
       const userId = sessionStorage.getItem('username');
 
-    if (userId !== null) {
-      this.authService.getUserById(userId).subscribe(
-        (response: any) => {
-          // Handle successful response
-          console.log('User:', response);
-          this.responseData = response;
-          this.dataService.sendData(this.responseData);
-        },
-        (error: any) => {
-          // Handle error
-          console.error('Error:', error);
-          if (error instanceof HttpErrorResponse) {
-            console.log('Response Headers:', error.headers.keys());
-            const authorizationHeader = error.headers.get('Authorization');
-            if (authorizationHeader) {
-                 console.log('Authorization Header:', authorizationHeader);
-            } else {
-                  console.log('No Authorization Header found.');
+      if (userId !== null) {
+        this.authService.getUserById(userId).subscribe(
+          (response: any) => {
+            // Handle successful response
+            console.log('User:', response);
+            this.responseData = response;
+            this.dataService.sendData(this.responseData);
+          },
+          (error: any) => {
+            // Handle error
+            console.error('Error:', error);
+            if (error instanceof HttpErrorResponse) {
+              console.log('Response Headers:', error.headers.keys());
+              const authorizationHeader = error.headers.get('Authorization');
+              if (authorizationHeader) {
+                console.log('Authorization Header:', authorizationHeader);
+              } else {
+                console.log('No Authorization Header found.');
+              }
             }
           }
-        }
-      );
-    } else {
-      console.error('User ID is null.');
-    }
-    },5000);
+        );
+      } else {
+        console.error('User ID is null.');
+      }
+    }, 500);
 
-
-
-  console.log(this.slotTiming);
-
-}
+    console.log(this.slotTiming);
+  }
 
   showSelectedCategory() {
-    // Handle the selected category as needed
     console.log('Selected category:', this.newItem.category);
   }
 
-
-
-
-
-
-
-
-
-    editItem() {
-
-
+  editItem() {
     if (this.isAnyRequiredFieldBlank() || !this.itemForm.valid) {
-      this.itemForm.form.setErrors({ 'invalidFields': true });
-      this.toastMessageService.openSnackBar("Please fill all the fields");
+      this.itemForm.form.setErrors({ invalidFields: true });
+      this.toastMessageService.openSnackBar('Please fill all the fields');
     } else {
       console.log(this.newItem);
 
@@ -225,42 +208,37 @@ export class EditAuctionPageComponent {
 
       formData.append('sellerId', String(sessionStorage.getItem('username')));
 
-
-    this.auctionService.editAuctionById(this.auctionId,formData).subscribe(
-      (responses: any[]) => {
-        console.log(responses);
-        this.toastMessageService.openSnackBar("Auction Item edited successfully");
-        this.newItem = {
-          name: '',
-          description: '',
-          startingPrice: 0,
-          category:''
-        };
-        this.isSlotSelected = false;
-      },
-      (error: any) => {
-        // Handle error
-        console.error('Error:', error);
-        this.toastMessageService.openSnackBar(error.error.message);
-      }
-    )
-
-
-
-
-  }
-
-
+      this.auctionService.editAuctionById(this.auctionId, formData).subscribe(
+        (responses: any[]) => {
+          console.log(responses);
+          this.toastMessageService.openSnackBar(
+            'Auction Item edited successfully'
+          );
+          this.newItem = {
+            name: '',
+            description: '',
+            startingPrice: 0,
+            category: '',
+          };
+          this.isSlotSelected = false;
+        },
+        (error: any) => {
+          // Handle error
+          console.error('Error:', error);
+          this.toastMessageService.openSnackBar(error.error.message);
+        }
+      );
+    }
   }
 
   private isAnyRequiredFieldBlank(): boolean {
-
     console.log(this.itemForm);
     console.log(this.itemForm.valid);
     return (
-      this.itemForm &&
-      this.itemForm.controls['itemName']?.hasError('required') ||
-      this.itemForm.controls['itemDescription']?.invalid && this.itemForm.controls['itemDescription']?.touched ||
+      (this.itemForm &&
+        this.itemForm.controls['itemName']?.hasError('required')) ||
+      (this.itemForm.controls['itemDescription']?.invalid &&
+        this.itemForm.controls['itemDescription']?.touched) ||
       this.itemForm.controls['startingPrice']?.hasError('required') ||
       this.itemForm.controls['selectedCategory']?.hasError('required') ||
       this.itemForm.controls['selectAuctionType']?.hasError('required') ||
@@ -270,6 +248,4 @@ export class EditAuctionPageComponent {
       false
     );
   }
-
-
 }

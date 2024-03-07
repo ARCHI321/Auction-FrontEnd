@@ -1,175 +1,273 @@
-<div style="width: 100vw; height: 100vh; display: flex" *ngIf="isLoading">
-  <div
-    style="
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      display: flex;
-      flex-direction: column-reverse;
-    "
-  >
-    <app-loading-spinner
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      "
-    ></app-loading-spinner>
-
-    <h2
-      *ngIf="justLoggedIn"
-      style="display: flex; align-items: center; justify-content: center"
-    >
-      Switching your profile
-    </h2>
-    <h2
-      *ngIf="!justLoggedIn"
-      style="display: flex; align-items: center; justify-content: center"
-    >
-      Loading
-    </h2>
+<div class="loading-container" *ngIf="isLoading">
+  <div class="loading-wrapper">
+    <app-loading-spinner></app-loading-spinner>
+    <h2 *ngIf="justLoggedIn">Switching your profile</h2>
+    <h1 *ngIf="!justLoggedIn">Loading</h1>
   </div>
 </div>
 
-<div *ngIf="!isLoading" class="whole-container">
-  <div class="container">
-    <h1>Welcome to the Auction Platform</h1>
-    <!-- <a id="myauction" routerLink="/my-auction-history">My Auctioned Items</a> -->
+<div class="main-container" *ngIf="!isLoading">
+  <div class="container text-center">
     <div class="post-form">
-      <h2>Post an Item for Auction</h2>
-      <form (ngSubmit)="postItem()" #itemForm="ngForm">
-        <div class="form-group">
-          <label for="itemName">Item Name:</label>
-          <input
-            type="text"
-            id="itemName"
-            name="itemName"
-            [(ngModel)]="newItem.name"
-            required
-          />
+      <div class="row">
+        <div class="col-md-3 left-register">
+          <div class="profile-img">
+            <img src="/assets/images/profile-img.jpg" alt="" />
+          </div>
+          <h2 style="text-align: center">Auctionner-Profile</h2>
+          <div class="profile-btn">
+            <button routerLink="/my-auction-history" class="profile-edit-btn">
+              my auctionned items
+            </button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="itemDescription">Item Description:</label>
-          <textarea
-            id="itemDescription"
-            name="itemDescription"
-            [(ngModel)]="newItem.description"
-            required
-          ></textarea>
-        </div>
-        <div class="form-group">
-          <label for="startingPrice">Starting Price(Min Rs 1000):</label>
-          <input
-            type="number"
-            id="startingPrice"
-            name="startingPrice"
-            [(ngModel)]="newItem.startingPrice"
-            required
-            min="1000"
-            (ngModelChange)="validateAmount()"
-          />
-        </div>
-        <div class="form-group">
-          <label for="selectedCategory">Select a Category:</label>
-          <select
-            id="selectedCategory"
-            (change)="showSelectedCategory()"
-            [(ngModel)]="newItem.category"
-            name="selectedCategory"
-            required
-          >
-            <option selected disabled>Select a Category</option>
-            <option *ngFor="let category of categories" [value]="category">
-              {{ category }}
-            </option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="selectAuctionType">Select a Type(uneditable):</label>
-          <select
-            id="selectAuctionType"
-            (change)="showSelectedAuctionType()"
-            [(ngModel)]="newItem.auctionType"
-            name="selectAuctionType"
-            required
-          >
-            <option selected disabled>Select a Type</option>
-            <option
-              *ngFor="let auctionType of allAuctionTypes"
-              [value]="auctionType"
-            >
-              {{ auctionType }}
-            </option>
-          </select>
-        </div>
-        <div *ngIf="newItem.auctionType == 'Paid'" class="form-group">
-          <label for="amount">Register Amount:(Fixed):</label>
-          <input type="number" id="amount" name="amount" value="400" readonly />
-        </div>
-        <div class="form-group">
-          <label for="itemImage">Item Image(uneditable):</label>
-          <input
-            type="file"
-            id="itemImage"
-            name="itemImage"
-            (change)="onFileSelected($event)"
-            accept="image/*"
-            [(ngModel)]="newItem.image"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="datetime">Select Date(uneditable):</label>
-          <input
-            type="date"
-            id="datetime"
-            name="datetime"
-            [(ngModel)]="newItem.date"
-            [min]="minDate"
-            required
-            (ngModelChange)="onDateSelected()"
-          />
-        </div>
-        <div class="form-group" *ngIf="!isDateSelected">
-          <label for="selectSlot">Select Date first:</label>
-        </div>
-        <div class="form-group" *ngIf="isDateSelected">
-          <label for="selectSlot">Select a Slot:</label>
-          <select
-            id="selectSlot"
-            (change)="showSelectedSlot()"
-            [(ngModel)]="newItem.slot"
-            [ngModelOptions]="{ standalone: true }"
-            name="selectSlot"
-            required
-          >
-            <option selected disabled>Select a Slot(uneditable):</option>
-            <option
-              *ngFor="let slotStatusObj of slotStatus"
-              [value]="slotStatusObj.slotNumber"
-              [disabled]="
-                slotStatusObj.slotStatus !== 'AVAILABLE' ||
-                slotStatusObj.istimeExpired
-              "
-            >
-              Slot {{ slotStatusObj.slotNumber }}
-            </option>
-          </select>
-        </div>
-        <div class="form-group" *ngIf="isSlotSelected">
-          <span
-            >Start Time:
-            {{ timingForSlot.start_time | date : "mediumTime" }}</span
-          >
-          <br />
-          <span
-            >End Time: {{ timingForSlot.end_time | date : "mediumTime" }}</span
-          >
-        </div>
+        <div class="col-md-8 right-register">
+          <h2>Register Your Auction</h2>
+          <hr />
+          <form (ngSubmit)="postItem(); resetForm(itemForm)" #itemForm="ngForm">
+            <div class="form-group">
+              <label for="itemName">Item Name</label>
+              <input
+                type="text"
+                id="itemName"
+                name="itemName"
+                [(ngModel)]="newItem.name"
+                required
+              />
+              <div
+                *ngIf="
+                  itemForm.controls['itemName'].invalid &&
+                  itemForm.controls['itemName'].touched
+                "
+              >
+                <small
+                  class="text-danger"
+                  *ngIf="itemForm.controls['itemName'].errors?.['required']"
+                  >Item name is required</small
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="itemDescription">Item Description</label>
+              <textarea
+                id="itemDescription"
+                name="itemDescription"
+                [(ngModel)]="newItem.description"
+                required
+              ></textarea>
+              <div
+                *ngIf="
+                  itemForm.controls['itemDescription'].invalid &&
+                  itemForm.controls['itemDescription'].touched
+                "
+              >
+                <small
+                  class="text-danger"
+                  *ngIf="itemForm.controls['itemDescription'].errors?.['required']"
+                  >Item description is required</small
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="startingPrice">Starting Price(Min Rs 1000)</label>
+              <input
+                type="number"
+                id="startingPrice"
+                name="startingPrice"
+                [(ngModel)]="newItem.startingPrice"
+                required
+                min="1000"
+                (ngModelChange)="validateAmount()"
+              />
+              <div
+                *ngIf="
+                  itemForm.controls['startingPrice'].invalid &&
+                  itemForm.controls['startingPrice'].touched
+                "
+              >
+                <small
+                  class="text-danger"
+                  *ngIf="itemForm.controls['startingPrice'].errors?.['required']"
+                  >Starting price is required</small
+                >
+                <small
+                  class="text-danger"
+                  *ngIf="itemForm.controls['startingPrice'].errors?.['min']"
+                  >Starting price must be at least 1000</small
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="selectedCategory">Select a Category:</label>
+              <select
+                id="selectedCategory"
+                (change)="showSelectedCategory()"
+                [(ngModel)]="newItem.category"
+                name="selectedCategory"
+                required
+              >
+                <option selected disabled>Select a Category</option>
+                <option *ngFor="let category of categories" [value]="category">
+                  {{ category }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  itemForm.controls['selectedCategory'].invalid &&
+                  itemForm.controls['selectedCategory'].touched
+                "
+              >
+                <small class="text-danger"
+                  >Category selection is required</small
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="selectAuctionType">Select a Type(uneditable)</label>
+              <select
+                id="selectAuctionType"
+                (change)="showSelectedAuctionType()"
+                [(ngModel)]="newItem.auctionType"
+                name="selectAuctionType"
+                required
+              >
+                <option selected disabled>Select a Type</option>
+                <option
+                  *ngFor="let auctionType of allAuctionTypes"
+                  [value]="auctionType"
+                >
+                  {{ auctionType }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  itemForm.controls['selectAuctionType'].invalid &&
+                  itemForm.controls['selectAuctionType'].touched
+                "
+              >
+                <small class="text-danger"
+                  >Auction type selection is required</small
+                >
+              </div>
+            </div>
+            <div *ngIf="newItem.auctionType == 'Paid'" class="form-group">
+              <label for="amount">Register Amount:(Fixed)</label>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                value="500"
+                readonly
+              />
+              <div
+                *ngIf="
+                  itemForm.controls['selectAuctionType'].invalid &&
+                  itemForm.controls['selectAuctionType'].touched
+                "
+              >
+                <small class="text-danger"
+                  >Auction type selection is required</small
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="itemImage">Item Image(uneditable)</label>
+              <input
+                type="file"
+                id="itemImage"
+                name="itemImage"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+                [(ngModel)]="newItem.image"
+                required
+              />
+              <div
+                *ngIf="
+                  itemForm.controls['itemImage'].invalid &&
+                  itemForm.controls['itemImage'].touched
+                "
+              >
+                <small class="text-danger">Item image is required</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="datetime">Select Date(uneditable):</label>
+              <input
+                type="date"
+                id="datetime"
+                name="datetime"
+                [(ngModel)]="newItem.date"
+                [min]="minDate"
+                required
+                (ngModelChange)="onDateSelected()"
+              />
+              <div
+                *ngIf="
+                  itemForm.controls['datetime'].invalid &&
+                  itemForm.controls['datetime'].touched
+                "
+              >
+                <small class="text-danger">Date selection is required</small>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="!isDateSelected">
+              <label for="selectSlot">Select Date first:</label>
+            </div>
+            <div class="form-group" *ngIf="isDateSelected">
+              <label for="selectSlot">Select a Slot:</label>
+              <select
+                id="selectSlot"
+                (change)="showSelectedSlot()"
+                [(ngModel)]="newItem.slot"
+                [ngModelOptions]="{ standalone: true }"
+                name="selectSlot"
+                required
+              >
+                <option selected disabled>Select a Slot(uneditable):</option>
+                <option
+                  *ngFor="let slotStatusObj of slotStatus"
+                  [value]="slotStatusObj.slotNumber"
+                  [disabled]="
+                    slotStatusObj.slotStatus !== 'AVAILABLE' ||
+                    slotStatusObj.istimeExpired
+                  "
+                >
+                  Slot {{ slotStatusObj.slotNumber }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  itemForm.submitted &&
+                  itemForm.controls['selectSlot'].invalid &&
+                  itemForm.controls['selectSlot'].touched
+                "
+              >
+                <small class="text-danger">Slot selection is required</small>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="isSlotSelected">
+              <span
+                >Start Time:
+                {{ timingForSlot.start_time | date : "mediumTime" }}</span
+              >
+              <br />
+              <span
+                >End Time:
+                {{ timingForSlot.end_time | date : "mediumTime" }}</span
+              >
+            </div>
 
-        <button type="submit" [disabled]="!itemForm.valid">Post Item</button>
-      </form>
+            <button
+              type="submit"
+              [class.disabled-button]="itemForm.invalid"
+              [class.active-button]="itemForm.valid"
+              [disabled]="itemForm.invalid"
+            >
+              Post Item
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
