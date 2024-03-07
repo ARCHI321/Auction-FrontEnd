@@ -27,13 +27,15 @@ export class PaymentComponent {
   userName: string = '';
   isRegistry: boolean;
   subscriptions: Subscription[] = [];
+  orderId!:string;
 
   constructor(
     private service: PaymentService,
     private router: Router,
     private authService: AuthService,
     private toastMessageService: ToastMessageService,
-    private auctionService:AuctionService
+    private auctionService:AuctionService,
+    private paymentService:PaymentService
   ) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     this.auctionId = state?.['auctionId'];
@@ -75,6 +77,8 @@ export class PaymentComponent {
   }
 
   openTransactionModal(response: any) {
+
+    this.orderId = response.orderId;
     var options = {
       order_id: response.orderId,
       key: response.key,
@@ -90,6 +94,16 @@ export class PaymentComponent {
           alert('Payment received');
         } else {
           alert('Payment Failed ...');
+          this.paymentService.setStatus(this.userId,this.auctionId,this.orderId,true).subscribe(
+            (response:any)=>{
+              console.log(response);
+
+            },
+            (error:any)=>{
+              console.log(error);
+
+            }
+          )
         }
         this.processResponse(response);
       },
@@ -108,21 +122,21 @@ export class PaymentComponent {
     var razorPayObject = new Razorpay(options);
     razorPayObject.open();
 
-    // setTimeout(() =>{
-    //   razorPayObject.close();
-    //   razorPayObject.destroy();
 
-    // },5000);
-
-    // setTimeout(() =>{
-    //   this.router.navigate(['/bid-home-page']);
-    //   this.toastMessageService.openSnackBar('Registered for auction');
-
-    // },6000);
   }
 
   processResponse(resp: any) {
     console.log(resp);
+    this.paymentService.setStatus(this.userId,this.auctionId,this.orderId,false).subscribe(
+      (response:any)=>{
+        console.log(response);
+        this.router.navigate(['/bid-home-page']);
+      },
+      (error:any)=>{
+        console.log(error);
+
+      }
+    )
 
   }
 

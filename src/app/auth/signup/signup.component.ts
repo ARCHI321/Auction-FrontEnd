@@ -128,19 +128,11 @@ export class SignupComponent {
       this.authService.setuserName(this.user.userId);
       this.authService.setemail(this.user.email);
       this.authService.setname(this.user.name);
+      this.authService.setPassword(this.user.userPassword);
 
-      this.authService.register(this.user).subscribe(
-        (response) => {
-          console.log('Registration successful', response);
-          this.toastMessageService.openSnackBar('Thank you registering');
-          this.isLoading = this.loadingService.loading$;
-          this.router.navigate(['/complete-details']);
-        },
-        (error) => {
-          console.error('Registration failed', error);
-          this.toastMessageService.openSnackBar('Some error occurred');
-        }
-      );
+      this.toastMessageService.openSnackBar('Thank you registering');
+      this.router.navigate(['/complete-details']);
+
     }
   }
 

@@ -69,14 +69,14 @@
         <a (click)="closeDropdown()" routerLink="/my-profile">Profile</a>
         <!-- <a routerLink="/edit-profile">Edit Profile</a> -->
         <a
-        (click)="switchProfile('bidder')"
-        (click)="closeDropdown()"
+          (click)="switchProfile('bidder')"
+          (click)="closeDropdown()"
           *ngIf="isAuctioneer()"
           >Switch to Bidder Profile</a
         >
         <a
-        (click)="switchProfile('auctionner')"
-        (click)="closeDropdown()"
+          (click)="switchProfile('auctionner')"
+          (click)="closeDropdown()"
           *ngIf="isBidder()"
           >Switch to Auctionner Profile</a
         >
@@ -97,6 +97,12 @@
           *ngIf="isBidder()"
           routerLink="/my-auction-history"
           >All Auctioned Items</a
+        >
+        <a
+          (click)="closeDropdown()"
+          *ngIf="isBidder()"
+          routerLink="/transaction-history"
+          >My Transaction History</a
         >
 
         <app-logout></app-logout>

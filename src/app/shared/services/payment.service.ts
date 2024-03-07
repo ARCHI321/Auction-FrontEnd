@@ -14,4 +14,9 @@ export class PaymentService {
       `${this.api}/payment/createTransaction/${amount}?isRegistry=${isRegistry}&userId=${userId}&auctionId=${auctionId}`
     );
   }
+
+  public setStatus(userId:string , auctionId:string , orderId:string , isFailure:boolean){
+    return this.httpClient.post<any>(`${this.api}/payment/set-status?userId=${userId}&auctionId=${auctionId}&transactionId=${orderId}&isFailure=${isFailure}`, null)
+
+  }
 }

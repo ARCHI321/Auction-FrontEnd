@@ -356,6 +356,36 @@ export class BidhomepageComponent {
     }
   }
 
+  unregister(auction:any){
+
+    if(auction.auctionType == 'Paid'){
+      this.toastMessageService.openSnackBar(
+        'You can unregister from a paid auction'
+      );
+    }
+    else{
+    const userId = sessionStorage.getItem('username') ?? '';
+    this.auctionService
+    .unregisterUserFromAuction(userId, auction.auctionId)
+    .subscribe((response: any) => {
+      console.log(response);
+      this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.registeredAuctions = [];
+          this.registeredAuctions = [...response];
+          this.toastMessageService.openSnackBar(
+            `UnRegistered for auction: ${auction.title}`
+          );
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    });
+    }
+  }
+
   isRegistered(auctionId: number): boolean {
     //console.log(this.registeredAuctions , auctionId , this.registeredAuctions.includes(auctionId));
 

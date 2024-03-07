@@ -17,6 +17,7 @@ export class AuthService {
   private userName!:string;
   private name!:string;
   private email!:string;
+  private password!:string;
 
 
 
@@ -26,44 +27,20 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  // login(role: string,user:any) {
-
-  //   this.loggedIn.next(true);
-  //   this.userRole = role;
-
-
-  //   return this.http.post<any>(`${this.baseUrl}/login`, user).pipe(
-  //     map((userData: any) => {
-  //        console.log(userData);
-  //        if (!userData || !userData.token) {
-  //            throw new Error('Invalid response data');
-  //        }
-  //        sessionStorage.setItem('username', user.username);
-  //        let tokenStr = 'Bearer ' + userData.token;
-  //        sessionStorage.setItem('token', tokenStr);
-  //        return userData;
-  //     }),
-  //     catchError(error => {
-  //         console.error('Error:', error);
-  //         // Handle the error here (e.g., show error message to user)
-  //         return throwError(error); // re-throw the error to propagate it to the subscriber
-  //     })
-  //  );
-
-
-  // }
 
   login(role: string, user: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
       this.http.post<any>(`${this.baseUrl}/login`, user).subscribe(
         (response: any) => {
-          sessionStorage.setItem('username', user.username);
           let tokenStr = 'Bearer ' + response.token;
-          sessionStorage.setItem('token', tokenStr);
-          resolve(response);
-          this.loggedIn.next(true);
-          this.userRole = role;
+          if(response.token !== null){
+            sessionStorage.setItem('token', tokenStr);
+            sessionStorage.setItem('username', user.username);
+            resolve(response);
+            this.loggedIn.next(true);
+            this.userRole = role;
+          }
         },
         (error: any) => {
           console.error('Login failed', error);
@@ -78,6 +55,7 @@ export class AuthService {
     this.loggedIn.next(false);
     this.userRole = null;
     sessionStorage.removeItem('username')
+    sessionStorage.removeItem('token')
   }
 
   register(user: any) {
@@ -145,6 +123,14 @@ export class AuthService {
   }
   getemail(){
     return this.email;
+  }
+
+  setPassword(password:string){
+    this.password = password;
+  }
+
+  getPassword(){
+    return this.password;
   }
 
 

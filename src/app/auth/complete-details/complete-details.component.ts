@@ -43,6 +43,22 @@ export class CompleteDetailsComponent {
   email!:string;
   name!:string;
   user:any;
+  password!:string;
+  userLogin: {
+    userName: string;
+    email: string;
+    userPassword: string;
+    admin: boolean;
+    userId: string;
+    name: string;
+  } = {
+    userName: '',
+    email: '',
+    userPassword: '',
+    admin: false,
+    userId: '',
+    name: '',
+  };
 
 
 
@@ -75,6 +91,7 @@ export class CompleteDetailsComponent {
     this.userName = this.authService.getuserName();
     this.email = this.authService.getemail();
     this.name = this.authService.getname();
+    this.password = this.authService.getPassword();
 
     this.userDetailsForm = this.fb.group({
       nickname: [this.userId, Validators.required],
@@ -151,6 +168,23 @@ export class CompleteDetailsComponent {
 
   onSubmit() {
 
+
+    this.userLogin.admin = false;
+    this.userLogin.name = this.authService.getname()
+    this.userLogin.userName = this.authService.getuserName();
+    this.userLogin.userId = this.authService.getuserId();
+    this.userLogin.userPassword = this.authService.getPassword();
+
+    this.authService.register(this.user).subscribe(
+      (response) => {
+        console.log('Registration successful', response);
+      },
+      (error) => {
+        console.error('Registration failed', error);
+        this.toastMessage.openSnackBar('Some error occurred');
+      }
+    );
+
     this.FinalUserDetailsForm = this.fb.group({
       nickname: this.createNameControl(),
       username: this.createuserNameControl(),
@@ -172,6 +206,9 @@ export class CompleteDetailsComponent {
     this.userData.phonePublic = this.FinalUserDetailsForm.value.phone.isPublic;
     this.userData.upiPublic = this.FinalUserDetailsForm.value.upiId.isPublic;
     console.log(this.userData);
+
+
+
 
 
     this.authService.updateUser(this.userData).subscribe(

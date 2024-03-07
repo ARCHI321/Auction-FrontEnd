@@ -132,6 +132,7 @@
           'cursor': !isRegistered(auction.auctionId) ? 'not-allowed' : 'pointer',
         }"
             [disabled]="!isRegistered(auction.auctionId)"
+            (click)="unregister(auction)"
           >
             UnRegister
           </button>
