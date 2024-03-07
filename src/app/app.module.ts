@@ -52,6 +52,7 @@ import { BidHistoryComponent } from './auction/bidder/bid-history/bid-history.co
 import { UppercasePipe } from './shared/services/uppercase.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaymentComponent } from './auction/app-payment/payment/payment.component';
+import { CustomTimeFormatPipe } from './shared/services/CustomTimeFormatPipe';
 
 library.add(faLinkedin, faFacebookSquare, faInstagram);
 
@@ -83,6 +84,7 @@ library.add(faLinkedin, faFacebookSquare, faInstagram);
     BidHistoryComponent,
     UppercasePipe,
     PaymentComponent,
+    CustomTimeFormatPipe
   ],
   imports: [
     BrowserModule,

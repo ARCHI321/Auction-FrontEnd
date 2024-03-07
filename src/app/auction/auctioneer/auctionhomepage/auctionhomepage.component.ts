@@ -119,7 +119,7 @@ export class AuctionhomepageComponent {
   ngOnInit() {
     setTimeout(() => {
       this.isLoading = false;
-    }, 3000);
+    }, 500);
     this.authService.setJustLoggedIn(false);
 
     setTimeout(() => {
@@ -150,7 +150,7 @@ export class AuctionhomepageComponent {
       } else {
         console.error('User ID is null.');
       }
-    }, 5000);
+    }, 1000);
 
     const numberOfSlots = 8;
     const baseHour = 9;
@@ -321,7 +321,7 @@ export class AuctionhomepageComponent {
         date: '',
         slot: 0,
         auctionType: '',
-        registerFee: 400,
+        registerFee: 500,
         category: '',
       };
       this.isSlotSelected = false;
@@ -367,5 +367,9 @@ export class AuctionhomepageComponent {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
+  }
+
+  resetForm(form: NgForm) {
+    form.resetForm();
   }
 }

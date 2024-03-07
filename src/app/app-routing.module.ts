@@ -32,9 +32,10 @@ const routes: Routes = [
   { path: 'bid-home-page', component: BidhomepageComponent , canActivate: [AuthGuard]},
   { path: 'my-auction-history', component: MyAuctionHistoryComponent , canActivate: [AuthGuard]},
   { path: 'bidding-page', component: BiddingpageComponent , canActivate: [AuthGuard]},
-  { path: 'registered-auctions', component: RegisteredauctionsComponent , canActivate: [AuthGuard]},
+  { path: 'registered-auctions', component: RegisteredauctionsComponent , canActivate:[AuthGuard]},
   { path: 'my-profile', component: UserInfoComponent , canActivate: [AuthGuard]},
-  { path: 'edit-profile', component: EditProfileComponent , canActivate: [AuthGuard]},
+  { path: 'edit-profile', component: EditProfileComponent ,   canActivate: [AuthGuard]
+  },
   { path: 'edit-auction-page', component: EditAuctionPageComponent , canActivate: [AuthGuard]},
   { path: 'bid-history', component: BidHistoryComponent , canActivate: [AuthGuard] },
   { path: 'transaction-history', component: TransactionHistoryComponent , canActivate: [AuthGuard] },

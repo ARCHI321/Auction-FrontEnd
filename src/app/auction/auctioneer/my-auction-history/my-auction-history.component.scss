@@ -1,64 +1,267 @@
-/* auction-history.component.css */
+.main-container {
+  max-width: 1440px;
+  margin: 10px auto;
+  padding: 15px;
+  font-family: karla;
+  font-size: 1rem;
+}
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ececec;
+  padding: 15px;
+  border-radius: 10px;
+}
+.auction-histoy-title {
+  font-family: karla;
+  font-size: 24px;
+  text-align: center;
+}
+p {
+  margin: 0px;
+}
+
+.card {
+  width: 350px;
+  height: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background: #fff;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 20px;
+  // z-index: 10;
+  overflow: hidden;
+}
+
+.card .backgroundEffect {
+  bottom: 0;
+  height: 0px;
+  width: 100%;
+}
+
+.card:hover {
+  color: #fff;
+  transform: scale(1.025);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px;
+}
+
+.card:hover .backgroundEffect {
+  bottom: 0;
+  height: 310px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  background: #971b22;
+  animation: popBackground 0.3s ease-in;
+}
+
+@keyframes popBackground {
+  0% {
+    height: 20px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
   }
 
-  .history-item {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 20px;
+  50% {
+    height: 80px;
+    border-top-left-radius: 75%;
+    border-top-right-radius: 75%;
   }
 
-  .history-item h3 {
-    margin-top: 0;
+  75% {
+    height: 160px;
+    border-top-left-radius: 85%;
+    border-top-right-radius: 85%;
   }
 
-  .history-item p {
-    margin-bottom: 5px;
+  100% {
+    height: 320px;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
   }
+}
 
-  .whole-container{
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, #ff9966, #ff5e62);
-  }
+.card .pic {
+  position: relative;
+}
 
-  .history-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
+.card .pic img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
 
-  .history{
-    background-color: whitesmoke;
-    width: 80%;
-    padding: 20px;
-    border-radius: 20px;
-  }
+.card .date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 70px;
+  background-color: #971b22;
+  color: white;
+  position: absolute;
+  bottom: 0px;
+  transition: all ease;
+  border-radius: 5px;
+}
 
-  .history-item{
-    border-bottom: 1px solid;
-    display: flex;
-    justify-content: space-around;
-  }
+.card .price-tag {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  background-color: #961925;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  padding: 5px;
+  border-radius: 5px;
+}
 
-  .btn{
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 92px;
-    margin-bottom: 10px;
-    }
+.card .date .day {
+  font-size: 14px;
+  font-weight: 600;
+}
 
-    pTag{
-      font-size: 17px;
-    }
+.card .date .month,
+.card .date .year {
+  font-size: 10px;
+}
+
+.card .text-muted {
+  font-size: 12px;
+}
+
+.card:hover .text-muted {
+  color: #fff !important;
+}
+
+.card .content {
+  padding: 0 20px;
+}
+
+.card .content .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  background-color: #dd9743;
+  border-radius: 25px;
+  font-size: 1rem;
+  border: none;
+}
+
+.card:hover .content .btn {
+  color: #000;
+  box-shadow: #0000001a 0px 3px 5px;
+}
+
+.card .content .btn .fas {
+  font-size: 10px;
+  padding-left: 5px;
+}
+
+.card .content .foot .admin {
+  color: #b21c23;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.card:hover .content .foot .admin {
+  color: #fff;
+}
+
+.card .content .foot .icon {
+  font-size: 12px;
+}
+.auction-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.auction-details {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.auction-details p {
+  margin: 5px 0;
+}
+
+.start-time,
+.end-time {
+  font-weight: bold;
+}
+
+.text-muted {
+  color: #999;
+  font-size: 0.8rem;
+  height: 75px;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.slot-number {
+  font-style: italic;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.mb-100 {
+  margin-bottom: 100px;
+}
+
+.bidder-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0px solid transparent;
+  border-radius: 0px;
+}
+
+.bidder-card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.bidder-card .bidder-card-title {
+  position: relative;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+ul.list-unstyled li {
+  list-style: none;
+}
+
+ul.list-unstyled li .title {
+  color: #673ab7;
+  padding: 8px 0px;
+  display: block;
+  text-decoration: none;
+}
+
+.m-t-5 {
+  margin-top: 5px;
+}
+
+.w-30px {
+  width: 30px;
+}
