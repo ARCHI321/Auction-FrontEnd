@@ -503,6 +503,7 @@ export class BiddingpageComponent {
           console.log(this.exit);
           this.loadParticipants();
         });
+
     });
   }
 

@@ -171,13 +171,56 @@ export class CompleteDetailsComponent {
 
     this.userLogin.admin = false;
     this.userLogin.name = this.authService.getname()
-    this.userLogin.userName = this.authService.getuserName();
+    this.userLogin.userName = this.authService.getuserId();
     this.userLogin.userId = this.authService.getuserId();
     this.userLogin.userPassword = this.authService.getPassword();
+    this.userLogin.email = this.authService.getemail();
 
-    this.authService.register(this.user).subscribe(
+    console.log(this.userLogin);
+
+    this.authService.register(this.userLogin).subscribe(
       (response) => {
         console.log('Registration successful', response);
+
+
+        this.FinalUserDetailsForm = this.fb.group({
+          nickname: this.createNameControl(),
+          username: this.createuserNameControl(),
+          email: this.createEmailControl(),
+          phone: this.createPhoneControl(),
+          upiId: this.createUpiIdControl(),
+          address: this.createAddressControl(),
+        });
+
+        this.userData.userId = this.FinalUserDetailsForm.value.nickname.nickname;
+        this.userData.userName = this.FinalUserDetailsForm.value.nickname.nickname;
+        this.userData.address = this.FinalUserDetailsForm.value.address.address;
+        this.userData.email = this.FinalUserDetailsForm.value.email.email;
+        this.userData.name = this.FinalUserDetailsForm.value.username.username;
+        this.userData.phoneNumber = this.FinalUserDetailsForm.value.phone.phone;
+        this.userData.upiId = this.FinalUserDetailsForm.value.upiId.upiId;
+        this.userData.addressPublic = this.FinalUserDetailsForm.value.address.isPublic;
+        this.userData.emailPublic = this.FinalUserDetailsForm.value.email.isPublic;
+        this.userData.phonePublic = this.FinalUserDetailsForm.value.phone.isPublic;
+        this.userData.upiPublic = this.FinalUserDetailsForm.value.upiId.isPublic;
+        console.log(this.userData);
+
+        this.authService.updateUser(this.userData).subscribe(
+          response => {
+            console.log('User updated successfully:', response);
+            this.toastMessage.openSnackBar('Thank you for completing your profile');
+            this.router.navigate(['/signin']);
+            this.authService.setemail("");
+            this.authService.setname("");
+            this.authService.setuserName("");
+            this.authService.setuserId("");
+          },
+          error => {
+            console.error('Error updating user:', error);
+            this.toastMessage.openSnackBar(error.message);
+            // Handle error, if needed
+          }
+        );
       },
       (error) => {
         console.error('Registration failed', error);
@@ -185,48 +228,13 @@ export class CompleteDetailsComponent {
       }
     );
 
-    this.FinalUserDetailsForm = this.fb.group({
-      nickname: this.createNameControl(),
-      username: this.createuserNameControl(),
-      email: this.createEmailControl(),
-      phone: this.createPhoneControl(),
-      upiId: this.createUpiIdControl(),
-      address: this.createAddressControl(),
-    });
-
-    this.userData.userId = this.FinalUserDetailsForm.value.nickname.nickname;
-    this.userData.userName = this.FinalUserDetailsForm.value.nickname.nickname;
-    this.userData.address = this.FinalUserDetailsForm.value.address.address;
-    this.userData.email = this.FinalUserDetailsForm.value.email.email;
-    this.userData.name = this.FinalUserDetailsForm.value.username.username;
-    this.userData.phoneNumber = this.FinalUserDetailsForm.value.phone.phone;
-    this.userData.upiId = this.FinalUserDetailsForm.value.upiId.upiId;
-    this.userData.addressPublic = this.FinalUserDetailsForm.value.address.isPublic;
-    this.userData.emailPublic = this.FinalUserDetailsForm.value.email.isPublic;
-    this.userData.phonePublic = this.FinalUserDetailsForm.value.phone.isPublic;
-    this.userData.upiPublic = this.FinalUserDetailsForm.value.upiId.isPublic;
-    console.log(this.userData);
 
 
 
 
 
-    this.authService.updateUser(this.userData).subscribe(
-      response => {
-        console.log('User updated successfully:', response);
-        this.toastMessage.openSnackBar('Thank you for completing your profile');
-        this.router.navigate(['/signin']);
-        this.authService.setemail("");
-        this.authService.setname("");
-        this.authService.setuserName("");
-        this.authService.setuserId("");
-      },
-      error => {
-        console.error('Error updating user:', error);
-        this.toastMessage.openSnackBar(error.message);
-        // Handle error, if needed
-      }
-    );
+
+
     // console.log('Form submitted:', this.FinalUserDetailsForm.value);
   }
 
