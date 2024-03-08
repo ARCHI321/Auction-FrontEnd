@@ -35,6 +35,7 @@ export class BidhomepageComponent {
   };
 
   chatSubscription!: Subscription;
+  activeTab: string = 'home1';
 
   constructor(
     @Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService,
@@ -444,5 +445,8 @@ export class BidhomepageComponent {
     clearInterval(this.intervalId1);
     clearInterval(this.intervalId2);
     this.chatService.disconnect();
+  }
+  changeTab(tabId: string): void {
+    this.activeTab = tabId;
   }
 }
