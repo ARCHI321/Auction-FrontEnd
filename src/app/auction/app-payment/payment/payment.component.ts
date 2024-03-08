@@ -127,9 +127,10 @@ export class PaymentComponent {
 
   processResponse(resp: any) {
     console.log(resp);
+    if(this.userId !== null){
     this.paymentService.setStatus(this.userId,this.auctionId,this.orderId,false).subscribe(
       (response:any)=>{
-        console.log(response);
+        console.log(response , this.isRegistry);
         if(!this.isRegistry){
         this.auctionService.truncateBidsTable().subscribe(
           (response:any)=>{
@@ -150,7 +151,7 @@ export class PaymentComponent {
         console.log(error);
 
       }
-    )
+    )}
 
   }
 

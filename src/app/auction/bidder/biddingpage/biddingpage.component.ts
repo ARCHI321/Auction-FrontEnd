@@ -242,12 +242,17 @@ export class BiddingpageComponent {
     this.loadAuction();
     this.isBidEnd();
 
-    const refreshInterval = 10000;
-      this.specialSubscriptions.push(interval(refreshInterval).subscribe(() => {
-        this.loadAuction();
-        this.isBidEnd();
-        this.loadParticipants();
-      }))
+    // const refreshInterval = 10000;
+    //   this.specialSubscriptions.push(interval(refreshInterval).subscribe(() => {
+    //     this.loadAuction();
+    //     this.loadParticipants();
+    //   }))
+    const refreshInterval1 = 1500;
+    this.specialSubscriptions.push(interval(refreshInterval1).subscribe(() => {
+      this.loadAuction();
+      this.loadParticipants();
+      this.isBidEnd();
+    }))
   }
 
   loadAuction() {
@@ -354,6 +359,7 @@ export class BiddingpageComponent {
 
       }, 3000);
       this.remainingTime = 30;
+      this.loadParticipantsWithoutIndex();
     }
 
     if (flag == 1) {
@@ -363,6 +369,7 @@ export class BiddingpageComponent {
         message: '',
       };
       this.sendMsg(bidMessage);
+      this.loadParticipants();
     }
   }
 
@@ -379,6 +386,7 @@ export class BiddingpageComponent {
       this.isBidClosed === 'ACTIVE' && this.registeredUsernames.length <= 1;
 
     const dataReady = this.registeredUsernamesReady$.value;
+    const userNotFolded = !this.exit;
 
     console.log(
       bidEndCondition1,
@@ -387,7 +395,7 @@ export class BiddingpageComponent {
       this.registeredUsernames
     );
 
-    if (bidEndCondition2) {
+    if (bidEndCondition2 && userNotFolded) {
       const navigationExtras: NavigationExtras = {
         state: {
           auctionId: this.auctionId,
@@ -406,7 +414,7 @@ export class BiddingpageComponent {
       );
 
       return true;
-    } else if (bidEndCondition1 && dataReady) {
+    } else if (bidEndCondition1 && dataReady && userNotFolded) {
       const navigationExtras: NavigationExtras = {
         state: {
           auctionId: this.auctionId,
@@ -455,6 +463,7 @@ export class BiddingpageComponent {
   getStyle() {
     if (this.isUserSelect()) {
       return { 'background-color': 'blue', cursor: 'pointer' };
+      return { 'background-color': 'blue', cursor: 'po1' };
     } else {
       return { 'background-color': 'gray', cursor: 'not-allowed' };
     }
@@ -616,7 +625,57 @@ export class BiddingpageComponent {
                 this.registeredUsernames[this.index].selected = true;
 
                 //console.log('registered usernames', this.registeredUsernames);
-                this.registeredUsernamesReady$.next(true);
+                //this.registeredUsernamesReady$.next(true);
+                this.isBidEnd();
+              },
+              (error: any) => {
+                console.log(error);
+              }
+            )
+          );
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      )
+    );
+  }
+  loadParticipantsWithoutIndex(): void {
+    this.subscriptions.push(
+      this.auctionService.registeredUsersForAuction(this.auctionId).subscribe(
+        (response: any) => {
+          //console.log("registered users" , response);
+          this.registeredUsers = response;
+          this.registeredUsers.sort((a: any, b: any) => {
+            const nameA = a.toUpperCase();
+            const nameB = b.toUpperCase();
+
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+            return 0;
+          });
+
+          const getUserObservables: Observable<any>[] =
+            this.registeredUsers.map((userId: string) =>
+              this.authService.getUserById(userId)
+            );
+          this.subscriptions.push(
+            forkJoin(getUserObservables).subscribe(
+              (responses: any[]) => {
+                this.registeredUsernames = responses.map((response) => {
+                  const name = response.name;
+                  const skipvalue = parseInt(localStorage.getItem(name)!);
+
+                  return {
+                    name: name,
+                    selected: false,
+                    skipped: skipvalue,
+                  };
+                });
                 this.isBidEnd();
               },
               (error: any) => {
@@ -635,6 +694,7 @@ export class BiddingpageComponent {
   onExitConfirmed(confirmed: boolean): void {
     if (confirmed) {
       console.log('User confirmed exit');
+      this.loadParticipants();
       this.router.navigate(['/bid-home-page']);
     } else {
       this.exit = false;
@@ -649,10 +709,10 @@ export class BiddingpageComponent {
       subscription.unsubscribe();
     });
 
-    if(this.registeredUsernames.length <= 0){
+
       this.specialSubscriptions.forEach((subscription) => {
         subscription.unsubscribe();
       });
+
     }
-  }
 }

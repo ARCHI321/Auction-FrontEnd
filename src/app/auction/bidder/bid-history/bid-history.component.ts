@@ -113,7 +113,19 @@ export class BidHistoryComponent {
 
     const userId = sessionStorage.getItem('username');
     console.log(this.winnerId , userId);
-    if (this.winnerId === userId) {
+    if (Array.isArray(this.winnerId) && this.winnerId.length > 0 && this.winnerId[0] === userId) {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          auctionId: this.auctionId,
+          userId: this.winnerId[0],
+          amount: this.winnerAmount,
+          isRegistry: false,
+        },
+      };
+
+      this.router.navigate(['/payment'], navigationExtras);
+    }
+    else if(typeof this.winnerId === 'string' && this.winnerId === userId){
       const navigationExtras: NavigationExtras = {
         state: {
           auctionId: this.auctionId,
