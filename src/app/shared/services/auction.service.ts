@@ -137,8 +137,8 @@ export class AuctionService {
     return this.http.get<any>(`http://localhost:8080/bid/truncate`)
   }
 
-  unregisterUserFromAuction(userId:any , auctionId:any){
-    return this.http.delete<any>(`http://localhost:8080/auction-registrations/unregister?userId=${userId}&auctionId=${auctionId}`)
+  unregisterUserFromAuction(userId:any , auctionId:any , flag:number){
+    return this.http.delete<any>(`http://localhost:8080/auction-registrations/unregister?userId=${userId}&auctionId=${auctionId}&flag=${flag}`)
   }
 
   getBidHistory(){
@@ -147,5 +147,9 @@ export class AuctionService {
 
   getAllTransactionsByUserId(userId:string){
     return this.http.get<any>(`http://localhost:8080/transactions/all-transactions-by-user?userId=${userId}`);
+  }
+
+  setWinner(auctionId:string , userId:string){
+    return this.http.put<any>(`http://localhost:8080/bid/set-winner/?auctionId=${auctionId}&userId=${userId}`, null)
   }
 }

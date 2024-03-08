@@ -21,6 +21,9 @@
       ></app-loading-spinner>
     </ng-container>
     <ng-container *ngIf="biddingStarted">
+      <div *ngIf="isUserSelect()">
+        <p>{{ remainingTime }}</p>
+      </div>
       <h2>Bidding Started!</h2>
       <!-- Bidding interface -->
       <h1>{{ item.name }}</h1>

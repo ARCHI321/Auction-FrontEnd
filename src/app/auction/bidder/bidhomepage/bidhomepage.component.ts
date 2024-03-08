@@ -37,6 +37,8 @@ export class BidhomepageComponent {
   chatSubscription!: Subscription;
   activeTab: string = 'home1';
 
+  subscriptions: Subscription[] = [];
+
   constructor(
     @Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService,
     private router: Router,
@@ -58,12 +60,12 @@ export class BidhomepageComponent {
 
     this.justLoggedIn = authService.getJustLoggedIn();
 
-    this.chatSubscription = this.chatService.messages.subscribe((msg: any) => {
+    this.subscriptions.push(this.chatSubscription = this.chatService.messages.subscribe((msg: any) => {
       const jsonDataString = msg['data'];
       this.customMessage.message = jsonDataString;
 
       this.receiveMessage(this.customMessage);
-    });
+    }));
   }
 
   // ngOnInit(): void {
@@ -136,7 +138,7 @@ export class BidhomepageComponent {
 
     const userId = sessionStorage.getItem('username');
 
-    this.auctionService.registeredAuctionsForUser(userId!, 0).subscribe(
+    this.subscriptions.push(this.auctionService.registeredAuctionsForUser(userId!, 0).subscribe(
       (response: any) => {
         console.log(response);
         this.registeredAuctions = [];
@@ -145,7 +147,7 @@ export class BidhomepageComponent {
       (error: any) => {
         console.log(error);
       }
-    );
+    ));
 
     this.intervalId1 = setInterval(() => {
       this.updateDateTime();
@@ -159,9 +161,9 @@ export class BidhomepageComponent {
     }, 1000);
 
     const refreshInterval = 60000;
-    interval(refreshInterval).subscribe(() => {
+    this.subscriptions.push(interval(refreshInterval).subscribe(() => {
       this.loadAuctions();
-    });
+    }));
   }
 
   receiveMessage(customMessage: any) {
@@ -219,7 +221,7 @@ export class BidhomepageComponent {
   loadAuctions(): void {
     const userId = sessionStorage.getItem('username');
 
-    this.auctionService.getAllAuctionItems(this.currentPage - 1).subscribe(
+    this.subscriptions.push(this.auctionService.getAllAuctionItems(this.currentPage - 1).subscribe(
       (response: any) => {
         this.auctions = response.content;
 
@@ -235,7 +237,7 @@ export class BidhomepageComponent {
         this.totalItems = response.totalElements;
         for (let i = 0; i < this.auctions.length; i++) {
           var auctionId = this.auctions[i].auctionId;
-          this.auctionService.getImageByAuctionId(auctionId).subscribe(
+          this.subscriptions.push(this.auctionService.getImageByAuctionId(auctionId).subscribe(
             (response: any) => {
               if (response instanceof Blob) {
                 const imageUrl = URL.createObjectURL(response);
@@ -254,8 +256,7 @@ export class BidhomepageComponent {
                 } else {
                   this.auctions[i].announced = true;
                 }
-                // For example, you can set it as the source of an image element in your HTML.
-                // this.imageSrc = imageUrl;
+
               } else {
                 console.error(
                   'Unexpected response format. Expected Blob, but received:',
@@ -266,7 +267,7 @@ export class BidhomepageComponent {
             (error: any) => {
               console.error('Error fetching image:', error);
             }
-          );
+          ));
         }
 
         console.log(this.auctions);
@@ -276,7 +277,7 @@ export class BidhomepageComponent {
         console.error('Error:', error);
         this.isLoading = false;
       }
-    );
+    ));
   }
 
   takePart(auction: any) {
@@ -302,13 +303,13 @@ export class BidhomepageComponent {
 
     if(auction.auctionType == 'Free'){
     const userId = sessionStorage.getItem('username') ?? '';
-    this.auctionService.registerForAuction(userId, auction.auctionId).subscribe(
+    this.subscriptions.push(this.auctionService.registerForAuction(userId, auction.auctionId).subscribe(
       (response: any) => {
         console.log(response);
         this.toastMessageService.openSnackBar(
           `Registered for auction: ${auction.title}`
         );
-        this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
+        this.subscriptions.push(this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
           (response: any) => {
             console.log(response);
             this.registeredAuctions = [];
@@ -317,12 +318,12 @@ export class BidhomepageComponent {
           (error: any) => {
             console.log(error);
           }
-        );
+        ));
       },
       (error: any) => {
         console.log(error);
       }
-    );
+    ));
     }
     else{
       const userId = sessionStorage.getItem('username') ?? '';
@@ -335,10 +336,10 @@ export class BidhomepageComponent {
           isRegistry:true
         },
       };
-      this.auctionService.registerForAuction(userId, auction.auctionId).subscribe(
+      this.subscriptions.push(this.auctionService.registerForAuction(userId, auction.auctionId).subscribe(
         (response: any) => {
           console.log(response);
-          this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
+          this.subscriptions.push(this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
             (response: any) => {
               console.log(response);
               this.registeredAuctions = [];
@@ -347,12 +348,12 @@ export class BidhomepageComponent {
             (error: any) => {
               console.log(error);
             }
-          );
+          ));
         },
         (error: any) => {
           console.log(error);
         }
-      );
+      ));
       this.router.navigate(['/payment'], navigationExtras);
     }
   }
@@ -366,11 +367,11 @@ export class BidhomepageComponent {
     }
     else{
     const userId = sessionStorage.getItem('username') ?? '';
-    this.auctionService
-    .unregisterUserFromAuction(userId, auction.auctionId)
+    this.subscriptions.push(this.auctionService
+    .unregisterUserFromAuction(userId, auction.auctionId,1)
     .subscribe((response: any) => {
       console.log(response);
-      this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
+      this.subscriptions.push(this.auctionService.registeredAuctionsForUser(userId, 0).subscribe(
         (response: any) => {
           console.log(response);
           this.registeredAuctions = [];
@@ -382,8 +383,8 @@ export class BidhomepageComponent {
         (error: any) => {
           console.log(error);
         }
-      );
-    });
+      ));
+    }));
     }
   }
 
@@ -445,6 +446,12 @@ export class BidhomepageComponent {
     clearInterval(this.intervalId1);
     clearInterval(this.intervalId2);
     this.chatService.disconnect();
+
+      // Unsubscribe from all subscriptions in the array
+      this.subscriptions.forEach((subscription) => {
+        subscription.unsubscribe();
+      });
+
   }
   changeTab(tabId: string): void {
     this.activeTab = tabId;
