@@ -97,7 +97,7 @@ export class PaymentComponent {
           this.paymentService.setStatus(this.userId,this.auctionId,this.orderId,true).subscribe(
             (response:any)=>{
               console.log(response);
-
+              this.router.navigate(['/bid-home-page']);
             },
             (error:any)=>{
               console.log(error);
@@ -130,7 +130,21 @@ export class PaymentComponent {
     this.paymentService.setStatus(this.userId,this.auctionId,this.orderId,false).subscribe(
       (response:any)=>{
         console.log(response);
-        this.router.navigate(['/bid-home-page']);
+        if(!this.isRegistry){
+        this.auctionService.truncateBidsTable().subscribe(
+          (response:any)=>{
+            console.log(response);
+            this.router.navigate(['/bid-home-page']);
+          },
+          (error:any)=>{
+            console.log(error);
+
+          }
+        )}
+        else{
+          this.router.navigate(['/bid-home-page']);
+        }
+
       },
       (error:any)=>{
         console.log(error);
