@@ -261,7 +261,7 @@ export class CompleteDetailsComponent {
     this.otpRequest.username = this.authService.getuserName();
 
     const otpRequestData = this.otpRequest;
-    console.log(otpRequestData);
+   // console.log(otpRequestData);
 
 
     const headers = new HttpHeaders({

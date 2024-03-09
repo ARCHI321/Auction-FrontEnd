@@ -33,10 +33,14 @@ export class HeaderComponent {
   ) {
     this.notificationCarrier.getData().subscribe((data) => {
       this.notifications = data;
+
       this.allNotifications.push(this.notifications);
+
+      if (this.allNotifications.length > 6) {
+        this.allNotifications.shift();
+      }
+
       console.log(this.allNotifications);
-
-
     });
   }
 
