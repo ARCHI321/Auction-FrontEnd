@@ -7,6 +7,8 @@ import { LoadingService } from '../../shared/services/loading.service';
 import { Subscription } from 'rxjs';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AuthService } from '../../shared/services/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { OtpService } from '../../shared/services/otp.service';
 
 @Component({
   selector: 'app-complete-details',
@@ -59,33 +61,49 @@ export class CompleteDetailsComponent {
     userId: '',
     name: '',
   };
+  isPhoneVerified:boolean = false;
+  isEmailVerified:boolean = false;
+  open!: boolean;
+  otpRequest:{
+    username:string,
+    phoneNumber:string
+  } = {
+    username:'',
+    phoneNumber:''
+  }
+
+  otpResponse:{
+    username:string,
+    otpNumber:string
+  } = {
+    username:'',
+    otpNumber:''
+  }
+  otp!:string;
 
 
 
 
 
 
-  constructor(private fb: FormBuilder, private toastMessage: ToastMessageService, private router: Router, public loadingService: LoadingService , private authService:AuthService) { }
+  constructor(private fb: FormBuilder, private toastMessage: ToastMessageService, private router: Router, public loadingService: LoadingService , private authService:AuthService,private http:HttpClient,private otpService:OtpService) {
+    this.otpService.getData().subscribe((data) => {
+      console.log(data);
+      this.otp = data;
+      if (this.otp && /^\d+$/.test(this.otp)) {
+        this.verifyOtp();
+      }
+      if (this.otp && /^(?=.*[a-zA-Z])(?=.*\d).+$/.test(this.otp)) {
+        this.verifyEmailOtp();
+    }
+    });
+  }
 
   loadingSubscription!: Subscription;
   animationState = 'fadeIn';
 
   ngOnInit() {
 
-
-    // this.loadingSubscription = this.loadingService.loading$.subscribe((isLoading) => {
-    //   if (isLoading) {
-    //     this.loadingService.showLoading(); // Show loading spinner when loading starts
-
-    //     setTimeout(() => {
-    //       // console.log('Async operation completed' , isLoading);
-
-    //       // Hide loading spinner when the async operation is complete
-    //       this.loadingService.hideLoading();
-    //       this.loadingSubscription.unsubscribe();
-    //     }, 5000);
-    //   }
-    // });
 
     this.userId = this.authService.getuserId();
     this.userName = this.authService.getuserName();
@@ -203,6 +221,8 @@ export class CompleteDetailsComponent {
         this.userData.emailPublic = this.FinalUserDetailsForm.value.email.isPublic;
         this.userData.phonePublic = this.FinalUserDetailsForm.value.phone.isPublic;
         this.userData.upiPublic = this.FinalUserDetailsForm.value.upiId.isPublic;
+
+
         console.log(this.userData);
 
         this.authService.updateUser(this.userData).subscribe(
@@ -229,14 +249,116 @@ export class CompleteDetailsComponent {
     );
 
 
-
-
-
-
-
-
-    // console.log('Form submitted:', this.FinalUserDetailsForm.value);
   }
+
+  verifyPhone() {
+    this.open = true;
+
+    this.userDetailsForm.get('phone')?.valueChanges.subscribe((value) => {
+      this.otpRequest.phoneNumber = value ?? '';
+    });
+
+    this.otpRequest.username = this.authService.getuserName();
+
+    const otpRequestData = this.otpRequest;
+    console.log(otpRequestData);
+
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+
+    });
+
+
+    this.http.post<any>('http://localhost:8080/otp/send-otp', otpRequestData, { headers })
+      .subscribe(
+        (response) => {
+          console.log('OTP request successful', response);
+
+        },
+        (error) => {
+          console.error('Error sending OTP request', error);
+
+        }
+      );
+
+
+
+  }
+
+  verifyOtp() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Add any other headers as needed
+    });
+
+    this.open = false;
+
+    this.otpResponse.otpNumber = this.otp;
+    this.otpResponse.username = this.otpRequest.username;
+
+    console.log(this.otpResponse);
+
+
+    this.http.post<any>('http://localhost:8080/otp/validate-otp', this.otpResponse, { headers })
+      .subscribe(
+        (response) => {
+          console.log('OTP request successful', response);
+          this.isPhoneVerified = true;
+        },
+        (error) => {
+          console.error('Error sending OTP request', error);
+          this.isPhoneVerified = false;
+          this.toastMessage.openSnackBar('Entered wrong Otp');
+        }
+      );
+  }
+
+
+  verifyEmail(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+
+    });
+
+    const contentBody = {
+      "contentBody" : `The otp is ${this.generateOtp()}`
+    }
+
+    const email = this.authService.getemail();
+
+
+    this.http.post<any>(`http://localhost:8080/api/send-notification?receiver=${email}.com&subjectBody=Auction`,contentBody,{ headers })
+      .subscribe(
+        (response) => {
+          console.log('OTP request successful', response);
+
+        },
+        (error) => {
+          console.error('Error sending OTP request', error);
+
+        }
+      );
+      this.open = true;
+
+  }
+
+  verifyEmailOtp(){
+    this.isEmailVerified = true;
+    this.open = false;
+  }
+
+  generateOtp(length: number = 6): string {
+    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let otp = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      otp += characters.charAt(randomIndex);
+    }
+
+    return otp;
+}
 
   ngOnDestroy() {
     // this.loadingSubscription.unsubscribe();

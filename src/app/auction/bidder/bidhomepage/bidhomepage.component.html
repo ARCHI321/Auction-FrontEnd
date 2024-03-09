@@ -144,11 +144,19 @@
               </div>
             </div>
 
-            <div class="tab-pane" [class.active]="activeTab === 'profile1'"  id="profile1"  role="tabpanel"  >
+            <div
+              class="tab-pane"
+              [class.active]="activeTab === 'profile1'"
+              id="profile1"
+              role="tabpanel"
+            >
               <div class="container">
-                <div *ngIf="auctions.length > 0; else noHistory"  class="auction-grid">
+                <div
+                  *ngIf="auctions.length > 0; else noHistory"
+                  class="auction-grid"
+                >
                   <div class="d-lg-flex flex-wrap justify-content-evenly">
-                    <div  *ngFor="let auction of filteredAuctions()"  >
+                    <div *ngFor="let auction of filteredAuctions()">
                       <div class="card border-0 me-lg-4 mb-lg-0 mb-4">
                         <div class="backgroundEffect"></div>
                         <div class="pic">
@@ -270,83 +278,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <div *ngIf="auctions.length > 0; else noHistory" class="auction-grid">
-              <div
-                style="display: flex; flex-direction: column; justify-content: center"
-                *ngFor="let auction of filteredAuctions()"
-                class="auction-item"
-              >
-
-           
-                <div>
-                  <h2>{{ auction.title }}</h2>
-                  <p>Description: {{ auction.description }}</p>
-                  <p>Start Time: {{ auction.startTime | date : "medium" }}</p>
-                  <p class="pTag">Category : {{ auction.category }}</p>
-                  <p class="pTag">auctionType : {{ auction.auctionType }}</p>
-                  <p class="pTag" *ngIf="auction.auctionType == 'Paid'">
-                    registerFee : {{ auction.registerFee }}
-                  </p>
-                  <p class="pTag">auctionStatus : {{ auction.auctionStatus }}</p>
-                  <p class="pTag">Date : {{ auction.date }}</p>
-                  <p class="pTag">slotNumber : {{ auction.slot.slotNumber }}</p>
-                  <p class="pTag">startTime : {{ auction.slot.startTime }}</p>
-                  <p class="pTag">endTime : {{ auction.slot.endTime }}</p>
-                </div>
-                <div style="width: 40%">
-                  <img
-                    style="width: 100%"
-                    src="{{ auction.imageData }}"
-                    alt="No Image Found"
-                  />
-                </div>
-                <div *ngIf="auctionStartTimes[auction.auctionId] > 0">
-                  <p>
-                    Time Remaining:
-                    {{ formatTimeRemaining(auctionStartTimes[auction.auctionId]) }}
-                  </p>
-                </div>
-                <p *ngIf="auction.auctionType == 'Paid'">Paid Auction</p>
-                <p *ngIf="auction.auctionType == 'Free'">Free Auction</p>
-                <div>
-                  <button
-                    [ngStyle]="{
-                'background-color': isRegistered(auction.auctionId) ? 'gray' : 'blue',
-                color: 'white',
-                cursor: isRegistered(auction.auctionId) ? 'pointer' : 'allowed',
-              }"
-                    [disabled]="isRegistered(auction.auctionId)"
-                    (click)="register(auction)"
-                  >
-                    Register
-                  </button>
-                  <button
-                    style="margin-left: 10px"
-                    [ngStyle]="{
-                  'background-color': !isRegistered(auction.auctionId) ? 'gray' : 'blue',
-                  'color': 'white',
-                  'cursor': !isRegistered(auction.auctionId) ? 'not-allowed' : 'pointer',
-                }"
-                    [disabled]="!isRegistered(auction.auctionId)"
-                    (click)="unregister(auction)"
-                  >
-                    UnRegister
-                  </button>
-                </div>
-                <app-pagination
-                  [pageSize]="pageSize"
-                  [totalItems]="totalItems"
-                  [currentPage]="currentPage"
-                  (pageChange)="onPageChange($event)"
-                ></app-pagination>
-              </div>
-              
-            </div>
-            <ng-template #noHistory>
-              <p>No upcoming auction available.</p>
-            </ng-template> -->
     </div>
   </div>
-  <!-- </div> -->
 </div>

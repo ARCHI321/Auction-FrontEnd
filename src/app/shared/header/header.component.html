@@ -1,6 +1,7 @@
 <header class="p-3 bg-color">
-  
-  <div class="container d-flex flex-wrap align-items-center justify-content-between">
+  <div
+    class="container d-flex flex-wrap align-items-center justify-content-between"
+  >
     <div class="mb-2 mb-lg-0 t">
       <div class="icon-banner" routerLink="/">
         <div class="icon" [innerHTML]="getIconContent(mainlogo)"></div>
@@ -10,39 +11,117 @@
 
     <div *ngIf="!isLoggedIn">
       <div class="text-end">
-        <button type="button" routerLink="/signin" class="btn btn-light btn-outline-success me-2 btn-lg">Login</button>
-        <button type="button" routerLink="/signup" class="btn btn-outline-warning btn-lg">Sign-up</button>
+        <button
+          type="button"
+          routerLink="/signin"
+          class="btn btn-light btn-outline-success me-2 btn-lg"
+        >
+          Login
+        </button>
+        <button
+          type="button"
+          routerLink="/signup"
+          class="btn btn-outline-warning btn-lg"
+        >
+          Sign-up
+        </button>
       </div>
     </div>
 
-    <div  style="  display: flex; align-items: center; width: 12%; justify-content: space-around;"
-     *ngIf="isLoggedIn"    class="dashboard">
-
-      <div style="margin-right: 5px"  class="notification-icon" (click)="toggleNotifications()">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        width: 12%;
+        justify-content: space-around;
+      "
+      *ngIf="isLoggedIn"
+      class="dashboard"
+    >
+      <!-- <div
+        style="margin-right: 5px"
+        class="notification-icon"
+        (click)="toggleNotifications()"
+      >
         <i style="font-size: 25px" class="fas fa-bell"></i>
       </div>
 
       <div class="notification-dropdown" *ngIf="showNotifications">
-        <div class="notification-item">Notification 1</div>
-        <div class="notification-item">Notification 2</div>
-        <div class="notification-item">Notification 3</div>
+        <div class="notification-item" *ngFor="let notification of allNotifications">
+          {{ notification }}
+        </div>
+      </div> -->
+
+      <div
+        style="margin-right: 5px"
+        class="notification-icon"
+        (click)="toggleNotifications()"
+      >
+        <i style="font-size: 25px" class="fas fa-bell"></i>
+        <span class="notification-count" *ngIf="getNotificationCount() > 0">{{
+          getNotificationCount()
+        }}</span>
       </div>
 
-      <button class="circular-button" (click)="toggleDropdown()">{{ firstLetter }}</button>
+      <div class="notification-dropdown" *ngIf="showNotifications">
+        <div
+          class="notification-item"
+          *ngFor="let notification of allNotifications"
+        >
+          {{ notification }}
+        </div>
+      </div>
+
+      <button class="circular-button" (click)="toggleDropdown()">
+        {{ firstLetter }}
+      </button>
       <div class="dropdown" *ngIf="showDropdown">
-        <a (click)="closeDropdown()" *ngIf="isBidder()" routerLink="/bid-home-page">Home</a>
-        <a (click)="closeDropdown()" *ngIf="isAuctioneer()" routerLink="/auction-items">Home</a>
+        <a
+          (click)="closeDropdown()"
+          *ngIf="isBidder()"
+          routerLink="/bid-home-page"
+          >Home</a
+        >
+        <a
+          (click)="closeDropdown()"
+          *ngIf="isAuctioneer()"
+          routerLink="/auction-items"
+          >Home</a
+        >
         <a (click)="closeDropdown()" routerLink="/my-profile">Profile</a>
-        <a (click)="switchProfile('bidder')"(click)="closeDropdown()" *ngIf="isAuctioneer()">Switch to Bidder Profile</a>
-        <a (click)="switchProfile('auctionner')" (click)="closeDropdown()"*ngIf="isBidder()">Switch to Auctionner Profile</a>
-        <a (click)="closeDropdown()" *ngIf="isBidder()" routerLink="/registered-auctions">Registered Auctions</a>
-        <a (click)="closeDropdown()" *ngIf="isAuctioneer()" routerLink="/my-auction-history">My Auctioned Items</a>
-        <a (click)="closeDropdown()" *ngIf="isBidder()"routerLink="/my-auction-history">All Auctioned Items</a>
-        <a (click)="closeDropdown()" *ngIf="isBidder()"routerLink="/transaction-history">My Transaction History</a>
+        <a
+          (click)="switchProfile('bidder')"
+          (click)="closeDropdown()"
+          *ngIf="isAuctioneer()"
+          >Switch to Bidder Profile</a
+        >
+        <a
+          (click)="switchProfile('auctionner')"
+          (click)="closeDropdown()"
+          *ngIf="isBidder()"
+          >Switch to Auctionner Profile</a
+        >
+        <a
+          (click)="closeDropdown()"
+          *ngIf="isBidder()"
+          routerLink="/registered-auctions"
+          >Registered Auctions</a
+        >
+        <a
+          (click)="closeDropdown()"
+          *ngIf="isAuctioneer()"
+          routerLink="/my-auction-history"
+          >My Auctioned Items</a
+        >
+        <a
+          (click)="closeDropdown()"
+          *ngIf="isBidder()"
+          routerLink="/my-auction-history"
+          >All Auctioned Items</a
+        >
+        <!-- <a (click)="closeDropdown()" *ngIf="isBidder()"routerLink="/transaction-history">My Transaction History</a> -->
         <app-logout></app-logout>
       </div>
-
     </div>
-
   </div>
 </header>

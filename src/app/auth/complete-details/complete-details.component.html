@@ -1,22 +1,3 @@
-<!-- <div
-  style="width: 100vw; height: 100vh; display: flex"
-  *ngIf="loadingService.loading$ | async"
->
-  <app-loading-spinner
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    "
-  ></app-loading-spinner>
-</div> -->
-
-<!-- <div
-  *ngIf="!(loadingService.loading$ | async)"
-  style="width: 98vw; height: 96vh"
-  class="details-container"
-> -->
 <div class="whole-container" [@fadeInAnimation]="animationState">
   <div class="details-container">
     <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmit()">
@@ -74,15 +55,6 @@
         <p>Private</p>
       </div>
 
-      <!-- <label for="phone">Phone:</label>
-      <input
-        type="text"
-        id="phone"
-        formControlName="phone"
-        required
-        pattern="\d{10}"
-      /> -->
-
       <label for="email">Email:</label>
       <div id="email-privacy">
         <input
@@ -132,7 +104,23 @@
       </div>
 
       <br />
-      <button type="submit" [disabled]="userDetailsForm.invalid">Submit</button>
+      <button
+        type="submit"
+        [disabled]="
+          userDetailsForm.invalid || (!isPhoneVerified && !isEmailVerified)
+        "
+      >
+        Submit
+      </button>
+      <button type="button" (click)="verifyPhone()">Verify Phone Number</button>
+      <button type="button" (click)="verifyEmail()">Verify Email</button>
     </form>
+
+    <div>isPhoneVerified: {{ isPhoneVerified }}</div>
+    <div>isEmailVerified: {{ isEmailVerified }}</div>
   </div>
+
+  <app-otp-form
+    [ngStyle]="{ position: 'absolute', display: open ? 'block' : 'none' }"
+  ></app-otp-form>
 </div>

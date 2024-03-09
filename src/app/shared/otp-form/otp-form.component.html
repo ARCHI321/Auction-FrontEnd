@@ -1,0 +1,12 @@
+<!-- otp-form.component.html -->
+
+<div class="otp-container">
+  <h2>Enter OTP</h2>
+  <form (ngSubmit)="submitOtp()" #otpForm="ngForm">
+    <div class="form-group">
+      <label for="otp">OTP:</label>
+      <input type="text" id="otp" name="otp" [(ngModel)]="otp" required />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

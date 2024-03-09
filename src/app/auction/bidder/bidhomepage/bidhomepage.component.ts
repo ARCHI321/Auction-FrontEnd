@@ -12,6 +12,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { DataService } from '../../../shared/services/data.service';
 import { Subscription, interval } from 'rxjs';
 import { NotificationService } from '../../../shared/services/notification.service';
+import { NotificationCarrierService } from '../../../shared/services/notification-carrier.service';
 
 interface AuctionHistoryItem {
   id: number;
@@ -46,7 +47,8 @@ export class BidhomepageComponent {
     private toastMessageService: ToastMessageService,
     private authService: AuthService,
     private dataService: DataService,
-    private chatService: NotificationService
+    private chatService: NotificationService,
+    private notificationCarrier:NotificationCarrierService
   ) {
     // Initialize the slickModalConfig
     this.slickModalConfig = {
@@ -68,13 +70,7 @@ export class BidhomepageComponent {
     }));
   }
 
-  // ngOnInit(): void {
-  //   // this.auctionService.getAuctions().subscribe(data => {
-  //   //   this.auctions = data;
-  //   // });
 
-  //   this.auctions = this.auctionService.getAuctions();
-  // }
   currentTime!: string | null;
 
   private intervalId1: any;
@@ -173,6 +169,8 @@ export class BidhomepageComponent {
       customMessage.message.indexOf('Broadcast:') + 10,
       customMessage.message.indexOf('@@@@')
     );
+
+    this.notificationCarrier.sendData(newMessage);
     this.user = customMessage.message
       .substring(
         customMessage.message.indexOf('!!!![') + 1,
@@ -196,6 +194,7 @@ export class BidhomepageComponent {
   sendMsg(message: any) {
     console.log('new message from client to websocket:', message);
     this.chatService.sendChatMessage(message);
+
     message.message = '';
   }
 

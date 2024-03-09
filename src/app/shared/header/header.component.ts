@@ -6,6 +6,7 @@ import { Route, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { customIcon } from '../../ui/icons';
+import { NotificationCarrierService } from '../services/notification-carrier.service';
 
 @Component({
   selector: 'app-header',
@@ -20,13 +21,24 @@ export class HeaderComponent {
   firstLetter!: string;
   receivedData: any;
   mainlogo: string = customIcon.logo;
+  notifications:any;
+  allNotifications:any[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private dataService: DataService,
-    private sanitizer: DomSanitizer
-  ) {}
+    private sanitizer: DomSanitizer,
+    private notificationCarrier:NotificationCarrierService
+  ) {
+    this.notificationCarrier.getData().subscribe((data) => {
+      this.notifications = data;
+      this.allNotifications.push(this.notifications);
+      console.log(this.allNotifications);
+
+
+    });
+  }
 
   ngOnInit() {
     this.loggingSubscription = this.authService.isAuthenticated.subscribe(
@@ -45,9 +57,11 @@ export class HeaderComponent {
     });
   }
 
-  ngOnDestroy() {
-    this.loggingSubscription.unsubscribe();
+  getNotificationCount(): number {
+    return this.allNotifications.length;
   }
+
+
 
   toggleDropdown() {
     console.log(this.showDropdown);
@@ -84,5 +98,9 @@ export class HeaderComponent {
   }
    closeDropdown() {
     this.showDropdown = false;
+  }
+
+  ngOnDestroy() {
+    this.loggingSubscription.unsubscribe();
   }
 }

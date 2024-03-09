@@ -2,6 +2,8 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { LoadingService } from '../../shared/services/loading.service';
 import { Router } from '@angular/router';
 import { AUCTION_SERVICE_TOKEN, AuctionService } from '../../shared/services/auction.service';
+import { LandingService } from '../../shared/services/landing.service';
+import { response } from 'express';
 interface Item {
   description: string;
   imageUrl: string;
@@ -15,9 +17,23 @@ interface Item {
   styleUrl: './landing.component.scss',
 })
 export class LandingComponent {
-  constructor(private loadingService: LoadingService, private router: Router,@Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService,) {}
-  isLoading: boolean = true;
-  // items:any;
+
+  // items:Item[] = [];
+
+
+  constructor(private loadingService: LoadingService, private router: Router,@Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService, private landingService:LandingService) {
+
+
+  }
+
+
+  ngOnInit() {
+
+
+
+
+
+  }
 
   formData = {
     name: '',
@@ -29,25 +45,7 @@ export class LandingComponent {
     console.log('Form submitted:', this.formData);
   }
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
 
-    // const userId = sessionStorage.getItem('username') ? sessionStorage.getItem('username') : '';
-
-    // this.auctionService.registeredAuctionsForUser(userId!, 0).subscribe(
-    //   (response: any) => {
-    //     console.log(response);
-    //     this.items = response;
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
-
-
-  }
 
   items: Item[] = [
     {
