@@ -10,7 +10,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // background-color: #ececec;
   width: 100vh;
   padding: 25px;
   border-radius: 10px;
@@ -231,7 +230,7 @@ p {
 .text-muted {
   color: #999;
   font-size: 0.8rem;
-  height: 75px;
+  max-height: 75px;
   overflow: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;

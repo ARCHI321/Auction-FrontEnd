@@ -10,8 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ececec;
-  padding: 15px;
+  background: radial-gradient(circle, rgba(224,135,121,1) 0%, rgba(226,233,238,1) 100%);  padding: 15px;
   border-radius: 10px;
 }
 .auction-histoy-title {
@@ -202,7 +201,7 @@ p {
 .text-muted {
   color: #999;
   font-size: 0.8rem;
-  height: 75px;
+  max-height: 75px;
   overflow: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
