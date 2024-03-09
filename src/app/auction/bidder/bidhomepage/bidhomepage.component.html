@@ -26,8 +26,6 @@
 <div *ngIf="!isLoading" class="main-container">
   <div class="container mt-5">
     <div class="row">
-      <!-- <div class="col-md-10 ml-auto col-xl-6 mr-auto"> -->
-      <!-- Tabs with Background on tabs-Card -->
       <div class="tabs-card">
         <div class="tabs-card-header">
           <ul
@@ -72,11 +70,8 @@
                     <div class="card border-0 me-lg-4 mb-lg-0 mb-4">
                       <div class="backgroundEffect"></div>
                       <div class="pic">
-                        <img class="" src="{{ auction.imageData }}" alt="" />
+                        <img class src="{{ auction.imageData }}" alt />
                         <div class="date">
-                          <!-- <span class="day">{{ auction.date | date : "d" }}</span>
-                      <span class="month">{{ auction.date | date : "MMMM" }}</span>
-                      <span class="year">{{ auction.date | date : "y" }}</span> -->
                           <span class="day">Live</span>
                         </div>
                         <div class="price-tag">
@@ -123,13 +118,7 @@
                             </p>
                           </div>
                         </div>
-                        <!-- <button class="btn"
-                     [ngStyle]="{'background-color': isRegistered(auction.auctionId) ? 'blue' : 'gray',
-                      'color': 'white', 'cursor': isRegistered(auction.auctionId) ? 'allowed' : 'pointer',   }"
-                        [disabled]="!isRegistered(auction.auctionId)"
-                        (click)="takePart(auction)" >
-                        Take Part
-                      </button> -->
+
                         <button
                           class="btn"
                           [disabled]="!isRegistered(auction.auctionId)"
@@ -160,7 +149,7 @@
                       <div class="card border-0 me-lg-4 mb-lg-0 mb-4">
                         <div class="backgroundEffect"></div>
                         <div class="pic">
-                          <img class="" src="{{ auction.imageData }}" alt="" />
+                          <img class src="{{ auction.imageData }}" alt />
                           <div class="date">
                             <span class="day">{{
                               auction.date | date : "d"
@@ -220,7 +209,6 @@
 
                           <div *ngIf="auctionStartTimes[auction.auctionId] > 0">
                             <p>
-                              Time Remaining:
                               {{
                                 formatTimeRemaining(
                                   auctionStartTimes[auction.auctionId]
@@ -231,13 +219,14 @@
                           <p *ngIf="auction.auctionType == 'Paid'">
                             Paid Auction
                           </p>
-                          <p *ngIf="auction.auctionType == 'Free'">
+                          <!-- <p *ngIf="auction.auctionType == 'Free'">
                             Free Auction
-                          </p>
-                          <div>
+                          </p> -->
+                          <div class="justify-content-center align-items-center">
                             <button
+                              class="btn"
                               [ngStyle]="{
-                    'background-color': isRegistered(auction.auctionId) ? 'gray' : 'blue',
+                    'background-color': isRegistered(auction.auctionId) ? 'gray' : '#11a86d',
                     color: 'white',
                     cursor: isRegistered(auction.auctionId) ? 'pointer' : 'allowed',
                   }"
@@ -247,9 +236,10 @@
                               Register
                             </button>
                             <button
+                              class="btn"
                               style="margin-left: 10px"
                               [ngStyle]="{
-                      'background-color': !isRegistered(auction.auctionId) ? 'gray' : 'blue',
+                      'background-color': !isRegistered(auction.auctionId) ? 'gray' : '#cf0025',
                       'color': 'white',
                       'cursor': !isRegistered(auction.auctionId) ? 'not-allowed' : 'pointer',
                     }"

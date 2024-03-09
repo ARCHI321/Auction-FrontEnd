@@ -109,7 +109,6 @@
 </div>
 
 <div *ngIf="isBidder() && !isLoading">
-  <app-back [backLocation]="backLocation"></app-back>
   <div class="history-container">
     <div class="history">
       <div *ngIf="auctionHistory.length > 0; else noHistory">
@@ -132,7 +131,7 @@
               </div>
               <div class="ms-auto">
                   <div class="text-end">
-                      <h5 class="bidder-text-muted mb-0">{{item.winnerId}} Preran-1709691364037-VarIf</h5>
+                      <h5 class="bidder-text-muted mb-0">{{item.winnerId}}</h5>
                       <span class="bidder-text-muted font-16">{{item.currentPrice}}</span>
                   </div>
               </div>
