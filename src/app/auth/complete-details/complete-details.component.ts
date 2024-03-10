@@ -327,8 +327,11 @@ export class CompleteDetailsComponent {
 
     const email = this.authService.getemail();
 
+    console.log(email);
 
-    this.http.post<any>(`http://localhost:8080/api/send-notification?receiver=${email}.com&subjectBody=Auction`,contentBody,{ headers })
+
+
+    this.http.post<any>(`http://localhost:8080/api/send-notification?receiver=${email}&subjectBody=Auction`,contentBody,{ headers })
       .subscribe(
         (response) => {
           console.log('OTP request successful', response);
