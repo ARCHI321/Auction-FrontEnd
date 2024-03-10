@@ -14,7 +14,7 @@ export class LandingService {
       .pipe(
         catchError((error: any) => {
           console.error('Error in getTop5UpcomingAuctions:', error);
-          throw error; // Rethrow the error for the component to handle
+          throw error;
         })
       );
   }
