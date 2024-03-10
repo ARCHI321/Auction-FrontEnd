@@ -24,17 +24,7 @@ export class ChatService {
   constructor(private wsService: WebsocketSecondService) {
 
     this.messagesSubject = new Subject<Message>();
-  //   this.messages = <Subject<Message>>wsService.connect(CHAT_URL).pipe(
-  //     map((response: MessageEvent): Message => {
-  //        let data = JSON.parse(response.data);
-  //        console.log("data ",data);
 
-  //        return {
-  //           author: data.author,
-  //           message: data.message
-  //        };
-  //     })
-  //  );
 
    this.wsService.connect(CHAT_URL).subscribe(
     (message: any) => {

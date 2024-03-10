@@ -29,6 +29,8 @@ export class BidHistoryComponent {
     this.auctionId = state?.['auctionId'];
     this.flag = state?.['flag'];
     this.winnerId = state?.['winnerId'];
+    console.log("WinnerId" , this.winnerId);
+
   }
 
   ngOnInit(): void {
@@ -74,7 +76,7 @@ export class BidHistoryComponent {
                   );
               }
               else{
-                this.winnerId = this.winnerFromDbId
+                this.winnerId = this.winnerFromDbId;
               }
 
               this.isLoading = false;

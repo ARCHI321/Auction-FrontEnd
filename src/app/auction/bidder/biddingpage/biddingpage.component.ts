@@ -247,7 +247,7 @@ export class BiddingpageComponent {
     //     this.loadAuction();
     //     this.loadParticipants();
     //   }))
-    const refreshInterval1 = 1500;
+    const refreshInterval1 = 3000;
     this.specialSubscriptions.push(interval(refreshInterval1).subscribe(() => {
       this.loadAuction();
       this.loadParticipants();
@@ -311,7 +311,7 @@ export class BiddingpageComponent {
       localStorage.setItem(this.registeredUsernames[this.index].name , this.registeredUsernames[this.index].skipped.toString())
       if (this.registeredUsernames[this.index].skipped >= 3) {
         this.registeredUsernames.splice(this.index, 1)[0];
-        this.loadParticipants();
+       // this.loadParticipants();
         let newMessage =
           customMessage.author +
           ' has skipped for maximum chances. Removing the participant';
@@ -326,7 +326,7 @@ export class BiddingpageComponent {
               //console.log(response);
               this.toastMessageService.openSnackBar(newMessage);
               this.updateIndex();
-              this.loadParticipants();
+              //this.loadParticipants();
             })
         );
       } else {
@@ -369,7 +369,7 @@ export class BiddingpageComponent {
         message: '',
       };
       this.sendMsg(bidMessage);
-      this.loadParticipants();
+      //this.loadParticipants();
     }
   }
 
@@ -559,7 +559,7 @@ export class BiddingpageComponent {
           (user) => user.name === selectedName
         );
         this.registeredUsernames.splice(index, 1)[0];
-        this.loadParticipants();
+        //this.loadParticipants();
         this.subscriptions.push(
           this.auctionService
             .unregisterUserFromAuction(
@@ -578,7 +578,7 @@ export class BiddingpageComponent {
               this.exit = true;
               console.log('Folding');
               console.log(this.exit);
-              this.loadParticipants();
+              //this.loadParticipants();
             })
         );
       })

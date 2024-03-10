@@ -21,7 +21,7 @@ export class LandingComponent {
   // items:Item[] = [];
 
 
-  constructor(private loadingService: LoadingService, private router: Router,@Inject(AUCTION_SERVICE_TOKEN) private auctionService: AuctionService, private landingService:LandingService) {
+  constructor(private loadingService: LoadingService, private router: Router,private landingService:LandingService) {
 
 
   }
