@@ -61,7 +61,7 @@ export class AuthService {
   register(user: any) {
     console.log(user);
 
-    return this.http.post<any>('http://localhost:8080/user/register', user);
+    return this.http.post<any>(`${this.baseUrl}/register`, user);
   }
 
   updateUser(userData: any): Observable<any> {
