@@ -11,6 +11,8 @@ export const AUCTION_SERVICE_TOKEN = new InjectionToken<any>('AUCTION_SERVICE_TO
 })
 export class AuctionService {
 
+  baseUrl = "http://localhost:8080";
+
   constructor(private http: HttpClient) { }
 
   // getAuctions(): Observable<any[]> {
@@ -66,28 +68,28 @@ export class AuctionService {
   }
 
   getAllCategories(){
-    return this.http.get<any>('http://localhost:8080/categories');
+    return this.http.get<any>(`${this.baseUrl}/categories`);
   }
   getAllAuctionTypes(){
-    return this.http.get<any>('http://localhost:8080/auction/types');
+    return this.http.get<any>(`${this.baseUrl}/auction/types`);
   }
   getSlotStatus(date:Date , slotnumber:number){
-    return this.http.get<any>(`http://localhost:8080/auction/slot/${slotnumber}?date=${date}`);
+    return this.http.get<any>(`${this.baseUrl}/auction/slot/${slotnumber}?date=${date}`);
   }
   createAuctionItem(data:any){
-    return this.http.post<any>('http://localhost:8080/auction/create',data);
+    return this.http.post<any>(`${this.baseUrl}/auction/create`,data);
   }
 
   getAllAuctionItemsByUserid(userid:any , page:number){
-    return this.http.get<any>(`http://localhost:8080/auction/seller/${userid}?page=${page}`);
+    return this.http.get<any>(`${this.baseUrl}/auction/seller/${userid}?page=${page}`);
   }
   getAuctionItemByAuctionrid(auctionId:any){
-    return this.http.get<any>(`http://localhost:8080/auction/${auctionId}`);
+    return this.http.get<any>(`${this.baseUrl}/auction/${auctionId}`);
   }
 
   getImageByAuctionId(auctionId: any) {
     const headers = new HttpHeaders({ 'Content-Type': 'image/png' });
-    return this.http.get(`http://localhost:8080/auction/image/${auctionId}`, {
+    return this.http.get(`${this.baseUrl}/auction/image/${auctionId}`, {
       responseType: 'blob',
       headers: headers,
       observe: 'response', // Use 'response' to get the full response
@@ -95,61 +97,61 @@ export class AuctionService {
   }
 
   deleteAuctionById(auctionId:any , userId:any){
-    return this.http.delete<any>(`http://localhost:8080/auction/delete/${auctionId}?userId=${userId}`)
+    return this.http.delete<any>(`${this.baseUrl}/auction/delete/${auctionId}?userId=${userId}`)
   }
 
   editAuctionById(auctionId:any , auction:any){
-    return this.http.put<any>(`http://localhost:8080/auction/update/${auctionId}`, auction)
+    return this.http.put<any>(`${this.baseUrl}/auction/update/${auctionId}`, auction)
   }
 
   getAllAuctionItems(page:number){
-    return this.http.get<any>(`http://localhost:8080/auction/all?page=${page}`);
+    return this.http.get<any>(`${this.baseUrl}/auction/all?page=${page}`);
   }
 
   getAllAuctions(page:number){
-    return this.http.get<any>(`http://localhost:8080/auction/all-auctions?page=${page}`);
+    return this.http.get<any>(`${this.baseUrl}/auction/all-auctions?page=${page}`);
   }
 
   registerForAuction(userId:string , auctionId:string){
-    return this.http.post<any>(`http://localhost:8080/auction-registrations/register?userId=${userId}&auctionId=${auctionId}`,null);
+    return this.http.post<any>(`${this.baseUrl}/auction-registrations/register?userId=${userId}&auctionId=${auctionId}`,null);
   }
   registeredAuctionsForUser(userId:string , flag:number){
-    return this.http.get<any>(`http://localhost:8080/auction-registrations/registration/${userId}?flag=${flag}`);
+    return this.http.get<any>(`${this.baseUrl}/auction-registrations/registration/${userId}?flag=${flag}`);
   }
 
   onClickBid(userId: any, auctionId: any  , bidAmount:any) {
-    return this.http.post<any>(`http://localhost:8080/bid/post-bids?userId=${userId}&auctionId=${auctionId}&bidAmount=${bidAmount}`,null);
+    return this.http.post<any>(`${this.baseUrl}/bid/post-bids?userId=${userId}&auctionId=${auctionId}&bidAmount=${bidAmount}`,null);
   }
 
   registeredUsersForAuction(auctionId:any){
-    return this.http.get<any>(`http://localhost:8080/auction-registrations/get-registered-users/${auctionId}`)
+    return this.http.get<any>(`${this.baseUrl}/auction-registrations/get-registered-users/${auctionId}`)
   }
 
   deleteUserByUserId(userid:string){
-    return this.http.delete<any>(`http://localhost:8080/bid/delete/${userid}`)
+    return this.http.delete<any>(`${this.baseUrl}/bid/delete/${userid}`)
   }
 
   getWinner(auctionId:string){
-    return this.http.get<any>(`http://localhost:8080/bid/get-winner?auctionId=${auctionId}`)
+    return this.http.get<any>(`${this.baseUrl}/bid/get-winner?auctionId=${auctionId}`)
   }
 
   truncateBidsTable(){
-    return this.http.get<any>(`http://localhost:8080/bid/truncate`)
+    return this.http.get<any>(`${this.baseUrl}/bid/truncate`)
   }
 
   unregisterUserFromAuction(userId:any , auctionId:any , flag:number){
-    return this.http.delete<any>(`http://localhost:8080/auction-registrations/unregister?userId=${userId}&auctionId=${auctionId}&flag=${flag}`)
+    return this.http.delete<any>(`${this.baseUrl}/auction-registrations/unregister?userId=${userId}&auctionId=${auctionId}&flag=${flag}`)
   }
 
   getBidHistory(){
-    return this.http.get<any>(`http://localhost:8080/bid/get-all-bids`)
+    return this.http.get<any>(`${this.baseUrl}/bid/get-all-bids`)
   }
 
   getAllTransactionsByUserId(userId:string){
-    return this.http.get<any>(`http://localhost:8080/transactions/all-transactions-by-user?userId=${userId}`);
+    return this.http.get<any>(`${this.baseUrl}/transactions/all-transactions-by-user?userId=${userId}`);
   }
 
   setWinner(auctionId:string , userId:string){
-    return this.http.put<any>(`http://localhost:8080/bid/set-winner/?auctionId=${auctionId}&userId=${userId}`, null)
+    return this.http.put<any>(`${this.baseUrl}/bid/set-winner/?auctionId=${auctionId}&userId=${userId}`, null)
   }
 }

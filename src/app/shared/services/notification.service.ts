@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { WebsocketService } from './websocket.service';
 import { Subject } from 'rxjs';
 
+
+
 const CHAT_URL = "ws://localhost:8080/notification";
 
 export interface Message {

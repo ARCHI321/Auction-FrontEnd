@@ -80,6 +80,7 @@ export class CompleteDetailsComponent {
     otpNumber:''
   }
   otp!:string;
+  baseUrl = 'http://localhost:8080';
 
 
 
@@ -270,7 +271,7 @@ export class CompleteDetailsComponent {
     });
 
 
-    this.http.post<any>('http://localhost:8080/otp/send-otp', otpRequestData, { headers })
+    this.http.post<any>(`${this.baseUrl}/otp/send-otp`, otpRequestData, { headers })
       .subscribe(
         (response) => {
           console.log('OTP request successful', response);
@@ -300,7 +301,7 @@ export class CompleteDetailsComponent {
     console.log(this.otpResponse);
 
 
-    this.http.post<any>('http://localhost:8080/otp/validate-otp', this.otpResponse, { headers })
+    this.http.post<any>(`${this.baseUrl}/otp/validate-otp`, this.otpResponse, { headers })
       .subscribe(
         (response) => {
           console.log('OTP request successful', response);
@@ -331,7 +332,7 @@ export class CompleteDetailsComponent {
 
 
 
-    this.http.post<any>(`http://localhost:8080/api/send-notification?receiver=${email}&subjectBody=Auction`,contentBody,{ headers })
+    this.http.post<any>(`${this.baseUrl}/api/send-notification?receiver=${email}&subjectBody=Auction`,contentBody,{ headers })
       .subscribe(
         (response) => {
           console.log('OTP request successful', response);
